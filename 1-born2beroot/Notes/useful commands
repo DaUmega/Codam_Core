@@ -1,0 +1,27 @@
+sudo adduser username             creating new user
+sudo userdel -r username		  delete a user
+sudo chage -l username            Verify password expire info for new user
+sudo adduser username sudo        assign new user to groups
+sudo adduser username user42      assign new user to groups
+lsblk                             Check partitions
+sudo aa-status                    AppArmor status
+getent group sudo                 sudo group users
+getent group user42               user42 group users
+sudo service ssh status           ssh status
+sudo service ssh start/stop		  self explanatory
+sudo ufw status                   firewall status
+sudo ufw allow 4242
+sudo ufw deny 4242
+ssh pdong@localhost -p 4242       connect to VM from your host (physical) machine via SSH
+nano /etc/sudoers.d/<filename>    yes, sudo config file
+nano /etc/login.defs              password expire policy
+nano /etc/pam.d/common-password   password policy
+sudo crontab -l                   cron schedule
+sudo crontab -e					  edit cron schedule
+cd /var/log/sudo/00/00 && ls	  sudo logs
+sudo nano /etc/hostname			  edit hostname permanently
+sudo nano /etc/hosts
+/etc/init.d/hostname.sh start	  or reboot
+groups <username>				  check user groups
+sudo groupadd mynewgroup		  add new group
+sudo groupdel					  self explanatory
