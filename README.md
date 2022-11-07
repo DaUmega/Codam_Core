@@ -4,4 +4,6 @@ I decided to pursue Codam Core in my limited time in the Netherlands. This repo 
 
 It's a self-paced, peer-to-peer learning school that will allow me to acquire coding knowledge and skills roughly equivalent to a bachelor degree.
 
+There are a total of 7 ranks of projects, as you successfully complete projects, you will rank up to the next one. The folders begin with the rank number. 6 is the final rank.
+
 Anticipated Completion Date: Before 2023-05-31
