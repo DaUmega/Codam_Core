@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isalnum.c                                       :+:    :+:            */
+/*   ft_lstsize.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/03 14:55:40 by pdong         #+#    #+#                 */
-/*   Updated: 2022/10/05 14:17:28 by pdong         ########   odam.nl         */
+/*   Created: 2022/11/05 21:15:52 by pdong         #+#    #+#                 */
+/*   Updated: 2022/11/05 21:18:15 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdio.h>
-// #include <ctype.h>
+#include "libft.h"
 
-int	ft_isalnum(int c)
+int	ft_lstsize(t_list *lst)
 {
-	return ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')
-		|| (c >= 'a' && c <= 'z'));
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }
-
-// int main()
-// {
-// 	int a;
-// 	int b;
-
-// 	a = ft_isalnum('.');
-// 	b = isalnum('.');
-// 	printf("A:%d\n", a);
-// 	printf("B:%d\n", b);
-// }

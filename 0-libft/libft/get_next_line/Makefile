@@ -8,11 +8,11 @@ CFLAGS	= -Wall -Werror -Wextra
 
 HEADERS = get_next_line.h
 
-CC		= gcc
-RM		= rm -f
+CC		= @gcc
+RM		= @rm -f
 
 $(NAME): $(OBJS)
-	ar rcs $@ $^
+	@ar rcs $@ $^
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@

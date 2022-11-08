@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   libft.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pdong <pdong@student.codam.nl>               +#+                     */
+/*   By: kali <kali@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/03 18:09:53 by pdong         #+#    #+#                 */
-/*   Updated: 2022/11/03 15:59:15 by pdong         ########   odam.nl         */
+/*   Updated: 2022/11/05 21:29:12 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "ft_printf/ft_printf.h"
+# include "get_next_line/get_next_line.h"
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -53,5 +60,10 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_printf(const char *s, ...);
 char	*get_next_line(int fd);
+t_list	*ft_lstnew(void *content);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+int		ft_lstsize(t_list *lst);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstadd_back(t_list **lst, t_list *new);
 
 #endif
