@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   nospace2.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pdong <pdong@student.codam.nl>               +#+                     */
+/*   By: kali <kali@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/15 15:42:21 by pdong         #+#    #+#                 */
-/*   Updated: 2022/11/15 16:02:00 by pdong         ########   odam.nl         */
+/*   Updated: 2022/11/15 15:47:14 by kali          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	singlecase(char **arr)
 {
-	if (ft_atoi(arr[0]) > INT_MAX || ft_atoi(arr[0]) < INT_MIN)
+	if (!arr[0] || ft_atoi(arr[0]) > INT_MAX || ft_atoi(arr[0]) < INT_MIN)
 		ft_error();
 	if (!arr[1] && ft_atoi(arr[0]) <= INT_MAX && ft_atoi(arr[0]) >= INT_MIN)
 	{

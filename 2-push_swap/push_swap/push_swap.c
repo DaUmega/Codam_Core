@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   push_swap.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pdong <pdong@student.codam.nl>               +#+                     */
+/*   By: kali <kali@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/15 15:42:53 by pdong         #+#    #+#                 */
-/*   Updated: 2022/11/15 16:29:21 by pdong         ########   odam.nl         */
+/*   Updated: 2022/11/15 15:54:07 by kali          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	parser2(t_lst **a, char **s, int ac)
 	temp = NULL;
 	while (i < ac)
 	{
-		if (ft_atoi(s[i]) > INT_MAX || ft_atoi(s[i]) < INT_MIN)
+		if (s[i][0] == ' ' || ft_atoi(s[i]) > INT_MAX
+			|| ft_atoi(s[i]) < INT_MIN)
 			ft_error();
 		temp = ft_lnew(ft_atoi(s[i]));
 		ft_ladd_end(a, temp);
