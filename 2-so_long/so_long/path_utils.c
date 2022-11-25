@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/22 16:23:33 by pdong         #+#    #+#                 */
-/*   Updated: 2022/11/22 16:23:34 by pdong         ########   odam.nl         */
+/*   Updated: 2022/11/25 18:06:15 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	newnode(t_path **lst, int x, int y, t_map *data)
 		data->c_count--;
 	if (data->map[y][x] == 'E')
 		data->e_count--;
+	data->map[y][x] = '1';
 }
 
 int	lstsize(t_path **a)

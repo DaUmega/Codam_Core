@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/24 16:52:07 by pdong         #+#    #+#                 */
-/*   Updated: 2022/11/24 18:18:49 by pdong         ########   odam.nl         */
+/*   Updated: 2022/11/25 18:09:09 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ void	obscheckad(int i)
 	else if (g_data->map[g_data->player_y][g_data->player_x + i] == 'E')
 	{
 		if (g_data->c_count == 0)
+		{
 			mlx_close_window(g_mlx);
+			g_data->steps++;
+		}
 	}
 	ft_printf("Steps Taken: %d\n", g_data->steps);
 }
