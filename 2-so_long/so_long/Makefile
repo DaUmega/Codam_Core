@@ -17,7 +17,7 @@ RM		= @rm -f
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX) $(HEADERS)
-	@gcc $(SRCS) $(LIBFT) $(MLX) -I include -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
+	@gcc $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) -I include -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
 
 %.o: %.c
 	@gcc $(CFLAGS) -c $< -o $@

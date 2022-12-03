@@ -18,10 +18,10 @@ RM		= rm -f
 all: $(NCLIENT) $(NSERVER)
 
 $(NCLIENT): $(OCLIENT) $(LIBFT)
-	gcc $(CLIENT) $(LIBFT) -o $(NCLIENT)
+	gcc $(CFLAGS) $(CLIENT) $(LIBFT) -o $(NCLIENT)
 
 $(NSERVER): $(OSERVER) $(LIBFT)
-	gcc $(SERVER) $(LIBFT) -o $(NSERVER)
+	gcc $(CFLAGS) $(SERVER) $(LIBFT) -o $(NSERVER)
 
 %.o: %.c
 	gcc $(CFLAGS) -c $< -o $@

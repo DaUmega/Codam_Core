@@ -16,7 +16,7 @@ RM		= @rm -f
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(HEADERS)
-	@gcc $(SRCS) $(LIBFT) -o $(NAME)
+	@gcc $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 %.o: %.c
 	@gcc $(CFLAGS) -c $< -o $@
