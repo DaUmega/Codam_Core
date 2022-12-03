@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 20:26:35 by pdong         #+#    #+#                 */
-/*   Updated: 2022/12/03 21:33:22 by pdong         ########   odam.nl         */
+/*   Updated: 2022/12/03 16:20:44 by kali          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ int	fedpeople(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->rules->fulladd);
 	if (philo->c_eats == philo->rules->c_eats)
-		philo->rules->fullpeople++;
-	if (philo->rules->fullpeople >= philo->rules->n_philo)
 	{
+		philo->rules->fullpeople++;
 		pthread_mutex_unlock(&philo->rules->fulladd);
 		return (1);
 	}
