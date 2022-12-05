@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 19:00:26 by pdong         #+#    #+#                 */
-/*   Updated: 2022/12/03 21:31:36 by pdong         ########   odam.nl         */
+/*   Updated: 2022/12/05 18:19:18 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_error(char *s, t_rules *rules, t_philo **philo, pthread_t *th)
 	i = 0;
 	if (rules)
 		pthread_mutex_lock(&rules->printer);
-	sleep(1);
+	usleep(1000000);
 	if (th)
 	{
 		while (i < rules->n_philo)
