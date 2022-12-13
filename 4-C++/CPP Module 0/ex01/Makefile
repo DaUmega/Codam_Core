@@ -1,12 +1,12 @@
-SRCS	= megaphone.cpp
+SRCS	= main.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
-NAME	= megaphone
+NAME	= phonebook
 
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-HEADERS = 
+HEADERS = Contacts.hpp
 
 RM		= @rm -f
 
@@ -16,7 +16,7 @@ $(NAME): $(OBJS) $(HEADERS)
 	@g++ $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp
-	g++ $(CFLAGS) -c $< -o $@
+	@g++ $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
