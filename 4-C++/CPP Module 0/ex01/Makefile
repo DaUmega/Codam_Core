@@ -1,10 +1,10 @@
-SRCS	= main.cpp
+SRCS	= main.cpp Contacts.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
 NAME	= phonebook
 
-CFLAGS	= -Wall -Werror -Wextra -std=c++98
+CFLAGS	= -Wall -Werror -Wextra -std=c++98 -pedantic
 
 HEADERS = Contacts.hpp
 

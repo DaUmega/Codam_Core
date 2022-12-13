@@ -4,7 +4,7 @@ OBJS	= $(SRCS:.cpp=.o)
 
 NAME	= megaphone
 
-CFLAGS	= -Wall -Werror -Wextra -std=c++98
+CFLAGS	= -Wall -Werror -Wextra -std=c++98 -pedantic
 
 HEADERS = 
 
@@ -16,7 +16,7 @@ $(NAME): $(OBJS) $(HEADERS)
 	@g++ $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp
-	g++ $(CFLAGS) -c $< -o $@
+	@g++ $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
