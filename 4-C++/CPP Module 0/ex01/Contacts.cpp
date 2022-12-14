@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iomanip>
 
-void	Contact::SimpleDisplay()
+void	Contact::SimpleDisplay(void)
 {
 	std::string	fname;
 	std::string	lname;
@@ -34,7 +34,7 @@ void	Contact::SimpleDisplay()
 	}
 }
 
-void	Contact::DetailDisplay()
+void	Contact::DetailDisplay(void)
 {
 	if (!this->FirstName.empty())
 	{
@@ -82,7 +82,7 @@ bool	Contact::AddOne(int i)
 	}
 }
 
-void	DongBook::Search()
+void	DongBook::Search(void)
 {
 	int 		i = 0;
 	std::string	input;

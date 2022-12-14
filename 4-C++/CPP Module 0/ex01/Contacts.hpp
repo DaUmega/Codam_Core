@@ -1,5 +1,5 @@
 #ifndef CONTACTS_HPP
-#define CONTACTS_HPP
+# define CONTACTS_HPP
 # include <iostream>
 # include <string>
 
@@ -7,8 +7,8 @@ class Contact
 {
 public:
 	bool		AddOne(int i);
-	void		SimpleDisplay();
-	void		DetailDisplay();
+	void		SimpleDisplay(void);
+	void		DetailDisplay(void);
 private:
 	int			index;
 	std::string	FirstName;
@@ -21,7 +21,7 @@ private:
 class DongBook
 {
 public:
-	void	Search();
+	void	Search(void);
 	bool	AddContact(int i);
 private:
 	Contact data[8];
