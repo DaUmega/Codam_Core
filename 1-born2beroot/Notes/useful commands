@@ -1,6 +1,6 @@
 sudo adduser username             creating new user
 sudo userdel -r username		  delete a user
-sudo chage -l username            Verify password expire info for new user
+sudo change -l username            Verify password expire info for new user
 sudo adduser username sudo        assign new user to groups
 sudo adduser username user42      assign new user to groups
 lsblk                             Check partitions
@@ -25,3 +25,4 @@ sudo nano /etc/hosts
 groups <username>				  check user groups
 sudo groupadd mynewgroup		  add new group
 sudo groupdel					  self explanatory
+hard-drive password debian
