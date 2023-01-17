@@ -5,7 +5,8 @@ HumanA::HumanA(std::string input, Weapon &temp): weapon(temp)
 {
 	this->name = input;
 	this->weapon = temp;
-	std::cout << this->name << " has been created with weapon: " << this->weapon.getType();
+	std::cout << this->name << " has been created with weapon: " 
+			<< this->weapon.getType() << '\n';
 }
 
 HumanA::~HumanA(void)
