@@ -13,10 +13,10 @@ RM		= @rm -f
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS)
-	@g++ $(CFLAGS) $(OBJS) -o $(NAME)
+	@c++ $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp
-	@g++ $(CFLAGS) -c $< -o $@
+	@c++ $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
