@@ -77,7 +77,7 @@ char	*ft_strjoina(char *s1, char *s2)
 	return (ans);
 }
 
-char	*readline(int fd, char *buf)
+char	*readfile(int fd, char *buf)
 {
 	char	*temp;
 	int		nread;
@@ -110,7 +110,7 @@ char	*get_next_line(int fd)
 	}
 	if (!buf)
 		buf = NULL;
-	buf = readline(fd, buf);
+	buf = readfile(fd, buf);
 	if (!buf)
 		return (NULL);
 	if (buf[0] == 0)
