@@ -1,16 +1,5 @@
 # minishell
-This project is about creating a simple shell. Yes, our own little bash. We will learn a lot about processes and file descriptors.
-
-## Description
-
-## Getting Started
-
-### Installing
-```
-git clone https://github.com/saladuit/Philosophers.git
-cd minishell
-make
-```
+This project is about creating a simple shell. Yes, our own little bash.
 
 ### Executing program
 
