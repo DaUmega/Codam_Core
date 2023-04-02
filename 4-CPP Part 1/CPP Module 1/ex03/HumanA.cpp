@@ -1,10 +1,8 @@
 #include "HumanA.hpp"
 #include <iostream>
 
-HumanA::HumanA(std::string input, Weapon &temp): weapon(temp)
+HumanA::HumanA(std::string input, Weapon &temp): weapon(temp), name(input)
 {
-	this->name = input;
-	this->weapon = temp;
 	std::cout << this->name << " has been created with weapon: " 
 			<< this->weapon.getType() << '\n';
 }

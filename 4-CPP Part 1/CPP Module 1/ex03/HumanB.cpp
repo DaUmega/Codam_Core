@@ -1,9 +1,8 @@
 #include "HumanB.hpp"
 #include <iostream>
 
-HumanB::HumanB(std::string input)
+HumanB::HumanB(std::string input): name(input)
 {
-	this->name = input;
 	std::cout << this->name << " has been created.\n";
 }
 
