@@ -2,11 +2,36 @@
 #include <fstream>
 #include <string>
 
+void	str_replace(std::string s, char **av)
+{
+	std::ofstream	ofs;
+	int				index;
+
+	ofs.open((std::string(av[1]) + ".replace").c_str());
+	if (ofs.fail())
+	{
+		std::cout << "Outfile Open Error.\n";
+		return ;
+	}
+	for (int i = 0; i < int(s.size()); i++)
+	{
+		index = s.find(av[2], i);
+		if (index >= 0 && index == i)
+		{
+			ofs << av[3];
+			i += std::string(av[2]).size() - 1;
+		}
+		else
+			ofs << s[i];
+	}
+	ofs.close();
+}
+
 int main(int ac, char **av)
 {
 	std::ifstream	ifs;
+	std::string		line;
 	std::string		content;
-	char			c;
 
 	if (ac != 4)
 	{
@@ -19,11 +44,9 @@ int main(int ac, char **av)
 		std::cout << "File Open Error.\n";
 		return (0);
 	}
-	while (ifs)
-	{
-		c = ifs.get();
-		content += c;
-	}
-	std::cout << content;
+	while (getline(ifs, line))
+		content += line + '\n';
+	ifs.close();
+	str_replace(content, av);
 	return (0);
 }
