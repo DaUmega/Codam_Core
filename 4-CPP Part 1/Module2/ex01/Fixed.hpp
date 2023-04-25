@@ -10,11 +10,13 @@ public:
 	Fixed(int const input);
 	Fixed(float const input);
 	~Fixed(void);
-	int	getRawBits(void) const;
+	int		getRawBits(void) const;
+	void	setRawBits(int const input);
+
 	Fixed(Fixed const &other);
-	Fixed &operator=(Fixed const &other);
-	float toFloat(void) const;
-	int	toInt(void) const;
+	Fixed	&operator=(Fixed const &other);
+	float	toFloat(void) const;
+	int		toInt(void) const;
 private:
 	int					_num;
 	static const int	_bits = 8;

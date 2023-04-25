@@ -7,9 +7,11 @@ class Fixed
 public:
 	Fixed();
 	~Fixed();
-	int	getRawBits() const;
+	int		getRawBits() const;
+	void	setRawBits(int const input);
+	
 	Fixed(Fixed const &other);
-	Fixed &operator=(Fixed const &other);
+	Fixed	&operator=(Fixed const &other);
 private:
 	int					_num;
 	static const int	_bits = 8;

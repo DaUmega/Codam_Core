@@ -25,6 +25,11 @@ int	Fixed::getRawBits(void) const
 	return (this->_num);
 }
 
+void Fixed::setRawBits(int const input)
+{
+	_num = input;
+}
+
 Fixed::Fixed(Fixed const &other): _num(other.getRawBits())
 {
 	std::cout << "Copy constructor called\n";
