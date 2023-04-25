@@ -22,7 +22,6 @@ Fixed::~Fixed(void)
 
 int	Fixed::getRawBits(void) const
 {
-	std::cout << "getRawBits member function called\n";
 	return (this->_num);
 }
 
@@ -36,4 +35,20 @@ Fixed &Fixed::operator=(Fixed const &other)
 	std::cout << "Copy assignment operator called\n";
 	this->_num = other.getRawBits();
 	return (*this);
+}
+
+std::ostream &operator<<(std::ostream &out, Fixed const &input)
+{
+	out << input.toFloat();
+	return (out);
+}
+
+float Fixed::toFloat(void) const
+{
+	return ((float)(this->_num) / (float)(1 << Fixed::_bits));
+}
+
+int Fixed::toInt(void) const
+{
+	return (this->_num >> Fixed::_bits);
 }

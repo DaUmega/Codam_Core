@@ -6,16 +6,20 @@
 class Fixed
 {
 public:
-	Fixed();
+	Fixed(void);
 	Fixed(int const input);
 	Fixed(float const input);
-	~Fixed();
-	int	getRawBits() const;
+	~Fixed(void);
+	int	getRawBits(void) const;
 	Fixed(Fixed const &other);
 	Fixed &operator=(Fixed const &other);
+	float toFloat(void) const;
+	int	toInt(void) const;
 private:
 	int					_num;
 	static const int	_bits = 8;
 };
+
+std::ostream &operator<<(std::ostream &out, Fixed const &input);
 
 #endif
