@@ -1,11 +1,11 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap(void): _name("Default"), _hp(100), _ep(50), _dmg(20)
+FragTrap::FragTrap(void): _name("Default"), _hp(100), _ep(100), _dmg(30)
 {
 	std::cout << "FragTrap constructor called.\n";
 }
 
-FragTrap::FragTrap(std::string const input): _name(input), _hp(100), _ep(50), _dmg(20)
+FragTrap::FragTrap(std::string const input): _name(input), _hp(100), _ep(100), _dmg(30)
 {
 	std::cout << _name << " (FragTrap) has been created.\n";
 }
