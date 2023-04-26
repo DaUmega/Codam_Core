@@ -1,10 +1,11 @@
 #include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int	main(void)
 {
 	ClapTrap a("AAAAHHHHH");
-	ScavTrap b("Big dude");
+	FragTrap b("Another dude");
 
 	a.attack(b.getName());
 	b.takeDamage(a.getDMG());
@@ -12,5 +13,5 @@ int	main(void)
 	a.takeDamage(b.getDMG());
 	a.beRepaired(4);
 	b.beRepaired(4);
-	b.guardGate();
+	b.highFivesGuys();
 }

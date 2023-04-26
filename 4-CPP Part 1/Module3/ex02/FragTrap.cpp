@@ -1,0 +1,69 @@
+#include "FragTrap.hpp"
+
+FragTrap::FragTrap(void): _name("Default"), _hp(100), _ep(100), _dmg(30)
+{
+	std::cout << "FragTrap constructor called.\n";
+}
+
+FragTrap::FragTrap(std::string const input): _name(input), _hp(100), _ep(100), _dmg(30)
+{
+	std::cout << _name << " (FragTrap) has been created.\n";
+}
+
+FragTrap::~FragTrap(void)
+{
+	std::cout << "FragTrap destructor called.\n";
+}
+
+void	FragTrap::attack(const std::string &target)
+{
+	if (_hp > 0)
+	{
+		std::cout	<< "FragTrap " << _name << " attacks " << target 
+					<< ", causing " << _dmg << " points of damage!\n";
+		std::cout	<< _name << " stats: HP " << _hp << ", EP " << _ep << "\n";
+	}
+	else
+		std::cout << "FragTrap " << _name << " is dead!\n";
+}
+void	FragTrap::takeDamage(unsigned int amount)
+{
+	if (_hp > 0)
+	{
+		std::cout	<< "FragTrap " << _name << " receives " << amount << " points of damage!\n";
+		_hp -= amount;
+		std::cout	<< _name << " stats: HP " << _hp << ", EP " << _ep << "\n";
+	}
+	else
+		std::cout << "FragTrap " << _name << " is dead!\n";
+}
+void	FragTrap::beRepaired(unsigned int amount)
+{
+	if (_hp > 0 && _ep > 0)
+	{
+		std::cout	<< "FragTrap " << _name << " recovers " << amount 
+					<< " HitPoints and loses 1 Energy Point!\n";
+		_hp += amount;
+		_ep--;
+		std::cout	<< _name << " stats: HP " << _hp << ", EP " << _ep << "\n";
+	}
+	else if (_hp > 0 && _ep <= 0)
+		std::cout << "FragTrap " << _name << " has no Energy Points left!\n";
+	else
+		std::cout << "FragTrap " << _name << " is dead!\n";
+}
+
+std::string	FragTrap::getName(void)
+{
+	return _name;
+}
+
+int	FragTrap::getDMG(void)
+{
+	return _dmg;
+}
+
+void	FragTrap::highFivesGuys(void)
+{
+	std::cout << "FragTrap " << _name << " is high fiving everyone including the dead!\n";
+}
