@@ -9,8 +9,8 @@ public:
 	FragTrap();
 	FragTrap(std::string const input);
 	~FragTrap();
-	FragTrap(const ClapTrap &other);
-	FragTrap &operator=(const ClapTrap &other);
+	FragTrap(const FragTrap &other);
+	FragTrap &operator=(const FragTrap &other);
 	
 	void		attack(const std::string &target);
 	void		takeDamage(unsigned int amount);
