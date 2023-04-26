@@ -44,27 +44,27 @@ void	ClapTrap::takeDamage(unsigned int amount)
 {
 	if (_hp > 0)
 	{
-		std::cout	<< "ClapTrap " << _name << " receives " << amount << " points of damage!\n";
+		std::cout	<< _name << " receives " << amount << " points of damage!\n";
 		_hp -= amount;
 		std::cout	<< _name << " stats: HP " << _hp << ", EP " << _ep << "\n";
 	}
 	else
-		std::cout << "ClapTrap " << _name << " is dead!\n";
+		std::cout << _name << " is dead!\n";
 }
 void	ClapTrap::beRepaired(unsigned int amount)
 {
 	if (_hp > 0 && _ep > 0)
 	{
-		std::cout	<< "ClapTrap " << _name << " recovers " << amount 
+		std::cout	<< _name << " recovers " << amount 
 					<< " HitPoints and loses 1 Energy Point!\n";
 		_hp += amount;
 		_ep--;
 		std::cout	<< _name << " stats: HP " << _hp << ", EP " << _ep << "\n";
 	}
 	else if (_hp > 0 && _ep <= 0)
-		std::cout << "ClapTrap " << _name << " has no Energy Points left!\n";
+		std::cout << _name << " has no Energy Points left!\n";
 	else
-		std::cout << "ClapTrap " << _name << " is dead!\n";
+		std::cout << _name << " is dead!\n";
 }
 
 std::string	ClapTrap::getName(void)

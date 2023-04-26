@@ -5,7 +5,7 @@
 int	main(void)
 {
 	ClapTrap a("AAAAHHHHH");
-	FragTrap b("Another dude");
+	FragTrap b("Big dude");
 
 	a.attack(b.getName());
 	b.takeDamage(a.getDMG());
