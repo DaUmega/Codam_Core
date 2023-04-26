@@ -15,12 +15,26 @@ ClapTrap::~ClapTrap(void)
 	std::cout << "Default destructor called.\n";
 }
 
+ClapTrap::ClapTrap(ClapTrap const &other): _name(other._name), 
+	_hp(other._hp), _ep(other._ep), _dmg(other._dmg)
+{}
+
+ClapTrap &ClapTrap::operator=(ClapTrap const &other)
+{
+	this->_name = other._name;
+	this->_hp = other._hp;
+	this->_ep = other._ep;
+	this->_dmg = other._dmg;
+	return (*this);
+}
+
 void	ClapTrap::attack(const std::string &target)
 {
 	if (_hp > 0)
 	{
 		std::cout	<< "ClapTrap " << _name << " attacks " << target 
 					<< ", causing " << _dmg << " points of damage!\n";
+		_ep--;
 		std::cout	<< _name << " stats: HP " << _hp << ", EP " << _ep << "\n";
 	}
 	else

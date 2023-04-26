@@ -8,6 +8,8 @@ public:
 	ClapTrap();
 	ClapTrap(std::string const input);
 	~ClapTrap();
+	ClapTrap(const ClapTrap &input);
+	ClapTrap &operator=(const ClapTrap &input);
 	
 	void	attack(const std::string &target);
 	void	takeDamage(unsigned int amount);
