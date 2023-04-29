@@ -10,6 +10,8 @@ public:
 	~Dog();
 	Dog(const Dog &other);
 	Dog &operator=(const Dog &other);
+private:
+	Brain	*brain;
 };
 
 #endif

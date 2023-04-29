@@ -12,10 +12,9 @@ public:
 	Animal &operator=(const Animal &other);
 	
 	virtual void	makeSound(void) const = 0;
-	std::string		getType(void) const;
+	std::string	getType(void) const;
 protected:
 	std::string	type;
-	Brain		*brain;
 };
 
 #endif

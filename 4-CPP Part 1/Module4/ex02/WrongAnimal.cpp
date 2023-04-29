@@ -3,12 +3,10 @@
 WrongAnimal::WrongAnimal(void): type("WrongAnimal")
 {
 	std::cout << "WrongAnimal constructor called.\n";
-	brain = new Brain();
 }
 
 WrongAnimal::~WrongAnimal(void)
 {
-	delete brain;
 	std::cout << "WrongAnimal destructor called.\n";
 }
 
@@ -23,7 +21,7 @@ WrongAnimal &WrongAnimal::operator=(WrongAnimal const &other)
 
 void	WrongAnimal::makeSound(void) const
 {
-	std::cout << "Realistic " << type << " sounds.\n";
+	std::cout << "Realistic WrongAnimal sounds.\n";
 }
 
 std::string	WrongAnimal::getType(void) const

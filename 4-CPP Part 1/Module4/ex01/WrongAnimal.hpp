@@ -15,7 +15,6 @@ public:
 	std::string	getType(void) const;
 protected:
 	std::string	type;
-	Brain		*brain;
 };
 
 #endif

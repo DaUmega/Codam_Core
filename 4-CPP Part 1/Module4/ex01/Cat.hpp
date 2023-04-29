@@ -10,6 +10,8 @@ public:
 	~Cat();
 	Cat(const Cat &other);
 	Cat &operator=(const Cat &other);
+private:
+	Brain	*brain;
 };
 
 #endif
