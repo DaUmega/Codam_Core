@@ -21,3 +21,8 @@ Cat &Cat::operator=(Cat const &other)
 	this->type = other.type;
 	return (*this);
 }
+
+void	Cat::makeSound(void) const
+{
+	std::cout << "Realistic Cat Noises.\n";
+}

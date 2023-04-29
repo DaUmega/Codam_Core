@@ -5,10 +5,10 @@
 
 int	main(void)
 {
-	const Animal* test[3] = {new Animal(), new Dog(), new Cat()};
+	const Animal* test[2] = {new Dog(), new Cat()};
 	const WrongAnimal* bad = new WrongCat();
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		test[i]->makeSound();
 		delete test[i];

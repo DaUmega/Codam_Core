@@ -21,3 +21,8 @@ Dog &Dog::operator=(Dog const &other)
 	this->type = other.type;
 	return (*this);
 }
+
+void	Dog::makeSound(void) const
+{
+	std::cout << "Realistic Dog Noises.\n";
+}
