@@ -15,13 +15,12 @@ Cat::~Cat(void)
 
 Cat::Cat(Cat const &other)
 {
-	type = other.type;
-	brain = other.brain;
+	*this = other;
 }
 
 Cat &Cat::operator=(Cat const &other)
 {
 	this->type = other.type;
-	this->brain = other.brain;
+	this->brain = new Brain(*other.brain);
 	return (*this);
 }
