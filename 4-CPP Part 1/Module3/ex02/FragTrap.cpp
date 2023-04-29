@@ -2,7 +2,7 @@
 
 FragTrap::FragTrap(void)
 {
-	_name = "Scav";
+	_name = "Frag";
 	_hp = 100;
 	_ep = 100;
 	_dmg = 30;
