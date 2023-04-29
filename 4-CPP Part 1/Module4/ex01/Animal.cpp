@@ -2,8 +2,8 @@
 
 Animal::Animal(void): type("Animal")
 {
-	brain = new Brain();
 	std::cout << "Animal constructor called.\n";
+	brain = new Brain();
 }
 
 Animal::~Animal(void)

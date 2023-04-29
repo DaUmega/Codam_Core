@@ -5,22 +5,15 @@
 
 int	main(void)
 {
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	const WrongAnimal* test = new WrongCat();
+	const Animal* test[3] = { new Animal(), new Dog(), new Cat() };
+	const WrongAnimal* bad = new WrongCat();
 
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	std::cout << test->getType() << " " << std::endl;
-	j->makeSound();
-	i->makeSound();
-	meta->makeSound();
-	test->makeSound();
-	delete meta;
-	delete j;
-	delete i;
-	delete test;
+	for (int i = 0; i < 3; i++)
+	{
+		test[i]->makeSound();
+		delete test[i];
+	}
+	delete bad;
 
 	return 0;
 }

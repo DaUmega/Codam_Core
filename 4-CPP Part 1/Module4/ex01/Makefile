@@ -1,4 +1,4 @@
-SRCS	= main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
+SRCS	= main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
@@ -6,7 +6,7 @@ NAME	= out
 
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-HEADERS = Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp
+HEADERS = Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp Brain.cpp
 
 RM		= @rm -f
 

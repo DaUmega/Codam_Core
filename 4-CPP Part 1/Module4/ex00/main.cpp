@@ -17,6 +17,10 @@ int	main(void)
 	i->makeSound();
 	meta->makeSound();
 	test->makeSound();
-
+	delete meta;
+	delete j;
+	delete i;
+	delete test;
+	
 	return 0;
 }

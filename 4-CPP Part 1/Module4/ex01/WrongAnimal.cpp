@@ -2,8 +2,8 @@
 
 WrongAnimal::WrongAnimal(void): type("WrongAnimal")
 {
-	brain = new Brain();
 	std::cout << "WrongAnimal constructor called.\n";
+	brain = new Brain();
 }
 
 WrongAnimal::~WrongAnimal(void)
