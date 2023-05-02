@@ -11,12 +11,12 @@ int	main(void)
         }
         catch (std::exception & e)
         {
-            std::cout << e.what() << std::endl;
+            std::cout << e.what();
         }
-        std::cout << test << std::endl;
+        std::cout << test;
     }
     catch (std::exception & e)
     {
-        std::cout << "Error: " << e.what() << std::endl;
+        std::cout << "Error: " << e.what();
     }
 }
