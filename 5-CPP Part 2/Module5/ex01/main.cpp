@@ -5,30 +5,30 @@ int	main(void)
 {
 	try
     {
-        Bureaucrat a("a", 150);
-        Form first("first", 90, 160);
-        std::cout << a << '\n';
-        std::cout << "Before first being signed "<< first << '\n';
+        Bureaucrat a("aaa", 80);
+        Form first("first", 90, 150);
+        std::cout << a;
+        std::cout << first;
         a.signForm(first);
-        std::cout << "After first being signed "<< first << '\n';
+        std::cout << first;
     }
     catch (std::exception & e)
     {
-        std::cout << "Error: " << '\n';
+        std::cout << "Error: " << e.what();
     }
     
     try
     {
-        Bureaucrat b("b", 150);
+        Bureaucrat b("bbb", 150);
         Form second("second", 150, 150);
 
-        std::cout << b << '\n';
-        std::cout << second << '\n';
+        std::cout << b;
+        std::cout << second;
         b.signForm(second);
-        std::cout << second << '\n';
+        std::cout << second;
     }
     catch (std::exception & e)
     {
-        std::cout << "Error: " << '\n';
+        std::cout << "Error: " << e.what();
     }
 }
