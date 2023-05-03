@@ -3,7 +3,7 @@
 # include <iostream>
 # include <stdexcept>
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -18,7 +18,7 @@ public:
 	std::string	getName(void) const;
 	void		incrementGrade(void);
 	void		decrementGrade(void);
-	void		signForm(Form &input);
+	void		signForm(AForm &input);
 
 	class	GradeTooHighException: public std::exception
 	{

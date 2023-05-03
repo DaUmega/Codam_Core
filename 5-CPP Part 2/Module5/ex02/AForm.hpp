@@ -1,15 +1,15 @@
-#ifndef FORM_HPP
-# define FORM_HPP
+#ifndef AFORM_HPP
+# define AFORM_HPP
 # include "Bureaucrat.hpp"
 
-class Form
+class AForm
 {
 public:
-	Form();
-	Form(std::string name, int signGrade, int execGrade);
-	~Form();
-	Form(const Form &other);
-	Form &operator=(const Form &other);
+	AForm();
+	AForm(std::string name, int signGrade, int execGrade);
+	virtual	~AForm();
+	AForm(const AForm &other);
+	AForm &operator=(const AForm &other);
 	
 	int			getExecGrade(void) const;
 	int			getSignGrade(void) const;
@@ -28,12 +28,15 @@ public:
 			virtual const char* what() const throw();
 	};
 private:
-	const std::string	_name;
-	bool				_signed;
-	int					_signGrade;
-	int					_execGrade;
+	std::string		_name;
+	bool			_signed;
+	int				_signGrade;
+	int				_execGrade;
+protected:
+	std::string		_target;
+	virtual	void	action(void) const = 0;
 };
 
-std::ostream &operator<<(std::ostream &out, Form const &other);
+std::ostream &operator<<(std::ostream &out, AForm const &other);
 
 #endif

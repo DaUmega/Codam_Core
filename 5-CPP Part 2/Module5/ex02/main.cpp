@@ -1,12 +1,12 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AAForm.hpp"
 
 int	main(void)
 {
 	try
     {
         Bureaucrat a("aaa", 80);
-        Form first("first", 90, 150);
+        AForm first("first", 90, 150);
         std::cout << a;
         std::cout << first;
         a.signForm(first);
@@ -20,7 +20,7 @@ int	main(void)
     try
     {
         Bureaucrat b("bbb", 150);
-        Form second("second", 150, 150);
+        AForm second("second", 150, 150);
 
         std::cout << b;
         std::cout << second;
