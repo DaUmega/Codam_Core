@@ -63,6 +63,26 @@ void	AForm::beSigned(Bureaucrat &input)
 	std::cout << input.getName() << " signed " << _name;
 }
 
+void	AForm::setName(std::string input)
+{
+	_name = input;
+}
+
+void	AForm::setSign(bool input)
+{
+	_signed = input;
+}
+
+void	AForm::setSGrade(int input)
+{
+	_signGrade = input;
+}
+
+void	AForm::setEGrade(int input)
+{
+	_execGrade = input;
+}
+
 const char* AForm::GradeTooHighException::what() const throw()
 {
 	return ("Grade too HIGH!\n");

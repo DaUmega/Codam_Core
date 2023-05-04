@@ -12,14 +12,7 @@ public:
 	ShrubberyCreationForm(const ShrubberyCreationForm &other);
 	ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
 	
-	int			getExecGrade(void) const;
-	int			getSignGrade(void) const;
-	std::string	getName(void) const;
-	bool		getSigned(void) const;
-	
-	void		action(void) const;
+	void	execute(Bureaucrat const &other) const;
 };
-
-std::ostream &operator<<(std::ostream &out, ShrubberyCreationForm const &other);
 
 #endif

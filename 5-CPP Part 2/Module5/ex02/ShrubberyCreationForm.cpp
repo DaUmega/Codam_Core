@@ -25,33 +25,43 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &other)
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &other)
 {
 	if (this != &other)
+	{
+		this->setName(other.getName());
+		this->setSign(other.getSigned());
+		this->setSGrade(other.getSignGrade());
+		this->setEGrade(other.getExecGrade());
 		_target = other._target;
+	}
 	return *this;
 }
 
-void	ShrubberyCreationForm::beSigned(Bureaucrat &input)
+void	ShrubberyCreationForm::execute(Bureaucrat const &other) const
 {
-	if (input.getGrade() > _signGrade)
-		throw ShrubberyCreationForm::GradeTooLowException();
-	_signed = true;
-	std::cout << input.getName() << " signed " << _name;
-}
-
-const char* ShrubberyCreationForm::GradeTooHighException::what() const throw()
-{
-	return ("Grade too HIGH!\n");
-}
-
-const char* ShrubberyCreationForm::GradeTooLowException::what() const throw()
-{
-	return ("Grade too LOW!\n");
-}
-
-std::ostream &operator<<(std::ostream &out, ShrubberyCreationForm const &other)
-{
-	out << "ShrubberyCreationForm name: " << other.getName()
-	<< ", Sign Grade: " << other.getSignGrade()
-	<< ", Grade to execute: " << other.getExecGrade()
-	<< ", Signed: " << other.getSigned() << std::endl;
-    return (out);
+	try
+	{
+		if (other.getGrade() > this->getExecGrade())
+			throw(GradeTooLowException());
+		else if (!this->getSigned())
+			std::cout << "Form not signed.\n";
+		else
+		{
+			std::ofstream	buffer(_target + "_shrubbery");
+			if (!buffer)
+				std::cout << "File creation error.\n";
+			buffer << "       _-_\n\
+    /~~   ~~\\\n\
+ /~~         ~~\\\n\
+{               }\n\
+ \\  _-     -_  /\n\
+   ~  \\\\ //  ~\n\
+_- -   | | _- _\n\
+  _ -  | |   -_\n\
+      // \\\\\n";
+			buffer.close();
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what();
+	}
 }

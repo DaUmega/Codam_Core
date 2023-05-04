@@ -1,4 +1,4 @@
-SRCS	= main.cpp Bureaucrat.cpp Form.cpp
+SRCS	= main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
@@ -6,7 +6,7 @@ NAME	= out
 
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-HEADERS = Bureaucrat.hpp Form.hpp
+HEADERS = Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp
 
 RM		= @rm -f
 
