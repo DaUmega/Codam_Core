@@ -93,6 +93,11 @@ const char* AForm::GradeTooLowException::what() const throw()
 	return ("Grade too LOW!\n");
 }
 
+const char* AForm::UnsignedException::what() const throw()
+{
+	return ("Grade too LOW!\n");
+}
+
 std::ostream &operator<<(std::ostream &out, AForm const &other)
 {
 	out << "AForm name: " << other.getName()

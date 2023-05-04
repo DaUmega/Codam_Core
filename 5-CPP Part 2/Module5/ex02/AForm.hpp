@@ -25,7 +25,7 @@ public:
 	void		setSign(bool input);
 	void		setSGrade(int input);
 	void		setEGrade(int input);
-	
+
 	virtual	void	execute(Bureaucrat const &other) const = 0;
 
 	class	GradeTooHighException: public std::exception
@@ -34,6 +34,11 @@ public:
 			virtual const char* what() const throw();
 	};
 	class	GradeTooLowException: public std::exception
+	{
+		public:
+			virtual const char* what() const throw();
+	};
+	class	UnsignedException: public std::exception
 	{
 		public:
 			virtual const char* what() const throw();

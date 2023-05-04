@@ -42,12 +42,12 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &other) const
 		if (other.getGrade() > this->getExecGrade())
 			throw(GradeTooLowException());
 		else if (!this->getSigned())
-			std::cout << "Form not signed.\n";
+			throw(UnsignedException());
 		else
 		{
 			std::ofstream	buffer(_target + "_shrubbery");
 			if (!buffer)
-				std::cout << "File creation error.\n";
+				throw(FileCreateException());
 			buffer << "       _-_\n\
     /~~   ~~\\\n\
  /~~         ~~\\\n\
@@ -64,4 +64,9 @@ _- -   | | _- _\n\
 	{
 		std::cerr << e.what();
 	}
+}
+
+const char* ShrubberyCreationForm::FileCreateException::what() const throw()
+{
+	return ("File creation error.\n");
 }

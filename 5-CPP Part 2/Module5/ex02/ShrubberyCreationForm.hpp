@@ -12,6 +12,12 @@ public:
 	ShrubberyCreationForm(const ShrubberyCreationForm &other);
 	ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
 	
+	class	FileCreateException: public std::exception
+	{
+		public:
+			virtual const char* what() const throw();
+	};
+
 	void	execute(Bureaucrat const &other) const;
 };
 

@@ -6,7 +6,7 @@ int	main(void)
 {
 	try
     {
-        Bureaucrat a("aaa", 120);
+        Bureaucrat a("aaa", 140);
         ShrubberyCreationForm first("first");
         std::cout << a;
         std::cout << first;
