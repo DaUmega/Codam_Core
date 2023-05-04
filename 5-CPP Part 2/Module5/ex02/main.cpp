@@ -6,13 +6,13 @@ int	main(void)
 {
 	try
     {
-        Bureaucrat a("aaa", 140);
+        Bureaucrat a("aaa", 120);
         ShrubberyCreationForm first("first");
         std::cout << a;
         std::cout << first;
         a.signForm(first);
         std::cout << first;
-        first.execute(a);
+        a.executeForm(first);
     }
     catch (std::exception & e)
     {
