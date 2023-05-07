@@ -20,6 +20,12 @@ public:
 		public:
 			virtual const char* what() const throw();
 	};
+private:
+	typedef struct s_form
+	{
+		std::string	_type;
+		int			_id;
+	}	t_form;
 };
 
 #endif

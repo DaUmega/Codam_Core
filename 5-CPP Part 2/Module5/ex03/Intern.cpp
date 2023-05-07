@@ -32,21 +32,28 @@ const char* Intern::FormNotFoundException::what() const throw()
 
 AForm	*Intern::makeForm(std::string input, std::string name)
 {
-	if (input.find("shrubbery") < input.length())
+	t_form	types[3] = {{"shrubbery", 0}, {"robotomy", 1}, {"presidential", 2}};
+	
+	int i;
+
+	for (i = 0; i < 3; i++)
 	{
-		std::cout << "Intern creates " << input << "\n";
-		return (new ShrubberyCreationForm(name));
+		if (input.find(types[i]._t) < input.length())
+			break;
 	}
-	else if (input.find("robotomy") < input.length())
+	
+	switch (i)
 	{
-		std::cout << "Intern creates " << input << "\n";
-		return (new RobotomyRequestForm(name));
+		case 0:
+			std::cout << "Intern creates " << input << "\n";
+			return (new ShrubberyCreationForm(name));
+		case 1:
+			std::cout << "Intern creates " << input << "\n";
+			return (new RobotomyRequestForm(name));
+		case 2:
+			std::cout << "Intern creates " << input << "\n";
+			return (new PresidentialPardonForm(name));
+		default:
+			throw(FormNotFoundException());
 	}
-	else if (input.find("presidential") < input.length())
-	{
-		std::cout << "Intern creates " << input << "\n";
-		return (new PresidentialPardonForm(name));
-	}
-	else
-		throw(FormNotFoundException());
 }
