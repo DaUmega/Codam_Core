@@ -45,13 +45,13 @@ AForm	*Intern::makeForm(std::string input, std::string name)
 	switch (i)
 	{
 		case 0:
-			std::cout << "Intern creates " << input << "\n";
+			std::cout << "Intern creates Shrubbery Creation Form named " << name << "\n";
 			return (new ShrubberyCreationForm(name));
 		case 1:
-			std::cout << "Intern creates " << input << "\n";
+			std::cout << "Intern creates Robotomy Request Form named " << name << "\n";
 			return (new RobotomyRequestForm(name));
 		case 2:
-			std::cout << "Intern creates " << input << "\n";
+			std::cout << "Intern creates Presidential Pardon Form named " << name << "\n";
 			return (new PresidentialPardonForm(name));
 		default:
 			throw(FormNotFoundException());

@@ -5,7 +5,7 @@ AForm::AForm(void): _name("AForm"), _signed(false), _signGrade(1), _execGrade(1)
 	std::cout << "AForm constructor called.\n";
 }
 
-AForm::AForm(std::string name, int signGrade, int execGrade): 
+AForm::AForm(std::string name, const int signGrade, const int execGrade): 
 _name(name), _signed(false), _signGrade(signGrade), _execGrade(execGrade)
 {
 	if (signGrade < 1 || execGrade < 1)
@@ -27,11 +27,7 @@ _name(other._name), _signed(other._signed), _signGrade(other._signGrade), _execG
 AForm &AForm::operator=(AForm const &other)
 {
 	if (this != &other)
-	{
 		_signed = other._signed;
-		_signGrade = other._signGrade;
-		_execGrade = other._execGrade;
-	}
 	return *this;
 }
 
@@ -61,26 +57,6 @@ void	AForm::beSigned(Bureaucrat &input)
 		throw AForm::GradeTooLowException();
 	_signed = true;
 	std::cout << input.getName() << " signed " << _name;
-}
-
-void	AForm::setName(std::string input)
-{
-	_name = input;
-}
-
-void	AForm::setSign(bool input)
-{
-	_signed = input;
-}
-
-void	AForm::setSGrade(int input)
-{
-	_signGrade = input;
-}
-
-void	AForm::setEGrade(int input)
-{
-	_execGrade = input;
 }
 
 const char* AForm::GradeTooHighException::what() const throw()

@@ -1,11 +1,11 @@
 #include "Form.hpp"
 
-Form::Form(void): _name("Form"), _signed(false), _signGrade(1), _execGrade(1)
+Form::Form(void): _name("Form"), _signed(false), _signGrade(150), _execGrade(150)
 {
 	std::cout << "Form constructor called.\n";
 }
 
-Form::Form(std::string name, int signGrade, int execGrade): 
+Form::Form(std::string name, const int signGrade, const int execGrade): 
 _name(name), _signed(false), _signGrade(signGrade), _execGrade(execGrade)
 {
 	if (signGrade < 1 || execGrade < 1)
@@ -27,11 +27,7 @@ _name(other._name), _signed(other._signed), _signGrade(other._signGrade), _execG
 Form &Form::operator=(Form const &other)
 {
 	if (this != &other)
-	{
 		_signed = other._signed;
-		_signGrade = other._signGrade;
-		_execGrade = other._execGrade;
-	}
 	return *this;
 }
 

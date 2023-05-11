@@ -25,13 +25,7 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &oth
 PresidentialPardonForm &PresidentialPardonForm::operator=(PresidentialPardonForm const &other)
 {
 	if (this != &other)
-	{
-		this->setName(other.getName());
-		this->setSign(other.getSigned());
-		this->setSGrade(other.getSignGrade());
-		this->setEGrade(other.getExecGrade());
 		_target = other._target;
-	}
 	return *this;
 }
 
