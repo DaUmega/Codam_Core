@@ -38,7 +38,7 @@ AForm	*Intern::makeForm(std::string input, std::string name)
 
 	for (i = 0; i < 3; i++)
 	{
-		if (input.find(types[i]._t) < input.length())
+		if (input.find(types[i]._type) < input.length())
 			break;
 	}
 	

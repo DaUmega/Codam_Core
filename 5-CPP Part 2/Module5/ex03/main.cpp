@@ -10,8 +10,8 @@ int	main(void)
 	try
     {
         Intern a;
-        Bureaucrat aa("bbb", 1);
-        AForm *form = a.makeForm("shrubbery test", "test");
+        Bureaucrat aa("aaa", 1);
+        AForm *form = a.makeForm("test presidential test", "test");
         std::cout << *form;
         aa.signForm(*form);
         std::cout << *form;
