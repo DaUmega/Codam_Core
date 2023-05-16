@@ -1,22 +1,17 @@
 #include "ScalarConverter.hpp"
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	try
+	ScalarConverter test;
+
+    if (ac != 2)
+        std::cout << "Usage: ./out <string to convert>\n";
+    else
     {
-        Bureaucrat test("Bureaucrat", 150);
-        try
-        {
-            test.decrementGrade();
-        }
-        catch (std::exception & e)
-        {
-            std::cout << e.what();
-        }
-        std::cout << test;
-    }
-    catch (std::exception & e)
-    {
-        std::cout << "Error: " << e.what();
+        std::string input(av[1]);
+        test.convert<char>(input);
+        test.convert<int>(input);
+        test.convert<float>(input);
+        test.convert<double>(input);
     }
 }

@@ -1,72 +1,69 @@
-#include "Bureaucrat.hpp"
+#include "ScalarConverter.hpp"
 
-Bureaucrat::Bureaucrat(void): _name("Default"), _grade(2)
-{
-	std::cout << "Default constructor called with name: Default and grade: 2\n";
-}
-
-Bureaucrat::Bureaucrat(std::string name, int grade): _name(name), _grade(grade)
-{
-	if (grade < 1)
-		throw GradeTooHighException();
-	else if (grade > 150)
-		throw GradeTooLowException();
-	std::cout << _name << " has been created with grade: " << _grade << std::endl;
-}
-
-Bureaucrat::~Bureaucrat(void)
-{
-	std::cout << "Bureaucrat destructor called.\n";
-}
-
-Bureaucrat::Bureaucrat(Bureaucrat const &other): _name(other._name), _grade(other._grade)
+ScalarConverter::ScalarConverter(void)
 {}
 
-Bureaucrat &Bureaucrat::operator=(Bureaucrat const &other)
+ScalarConverter::~ScalarConverter(void)
+{}
+
+ScalarConverter::ScalarConverter(ScalarConverter const &other)
 {
-	if (this != &other)
-		_grade = other._grade;
+	(void)(other);
+}
+
+ScalarConverter &ScalarConverter::operator=(ScalarConverter const &other)
+{
+	(void)(other);
 	return *this;
 }
 
-int	Bureaucrat::getGrade(void) const
+template <typename T>	
+T	ScalarConverter::convert(const std::string &input) const
 {
-	return _grade;
+	T	value;
+
+	if (std::is_same<T, char>::value)
+	{
+		try { value = std::stoi(input); }
+		catch(const std::exception &e)
+			{ std::cout << "char: impossible\n"; return value; }
+		if (value < 0 || value > 127)
+			std::cout << "char: impossible\n"; 
+		else if (value < 32 || value > 126)
+            std::cout << "char: Non displayable\n";
+		else
+			std::cout << "char: '" << value << "'" << std::endl;
+		return value;
+	}
+	else if (std::is_same<T, int>::value)
+	{
+		try { value = std::stoi(input); }
+		catch(const std::exception &e)
+			{ std::cout << "int: impossible\n"; return value; }
+		std::cout << "int: " << value << std::endl;
+		return value;
+	}
+	else if (std::is_same<T, float>::value)
+	{
+		float temp;
+		try { temp = std::stof(input); }
+		catch(const std::exception &e)
+			{ std::cout << "float: impossible\n"; return temp;}
+		std::cout << std::setprecision(1) << std::fixed << "float: " << temp << "f" << std::endl;
+		return temp;
+	}
+	else if (std::is_same<T, double>::value)
+	{
+		double temp;
+		try { temp = std::stod(input); }
+		catch(const std::exception &e)
+			{ std::cout << "double: impossible\n"; return temp;}
+		std::cout << std::setprecision(1) << std::fixed << "double: " << temp << std::endl;
+		return temp;
+	}
 }
 
-std::string	Bureaucrat::getName(void) const
-{
-	return _name;
-}
-
-void	Bureaucrat::incrementGrade(void)
-{
-	if (_grade <= 1)
-		throw Bureaucrat::GradeTooHighException();
-	else
-		_grade--;
-}
-
-void	Bureaucrat::decrementGrade(void)
-{
-	if (_grade >= 150)
-		throw Bureaucrat::GradeTooLowException();
-	else
-		_grade++;
-}
-
-const char* Bureaucrat::GradeTooHighException::what() const throw()
-{
-	return ("Grade too HIGH!\n");
-}
-
-const char* Bureaucrat::GradeTooLowException::what() const throw()
-{
-	return ("Grade too LOW!\n");
-}
-
-std::ostream &operator<<(std::ostream &out, Bureaucrat const &other)
-{
-	out << other.getName() << ", bureaucrat grade " << other.getGrade() << std::endl;
-	return (out);
-}
+template char ScalarConverter::convert<char>(const std::string &input) const;
+template int ScalarConverter::convert<int>(const std::string &input) const;
+template float ScalarConverter::convert<float>(const std::string &input) const;
+template double ScalarConverter::convert<double>(const std::string &input) const;
