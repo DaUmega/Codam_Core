@@ -6,7 +6,7 @@ NAME	= out
 
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-HEADERS = whatever.hpp
+HEADERS = iter.hpp
 
 RM		= @rm -f
 
