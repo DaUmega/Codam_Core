@@ -12,7 +12,7 @@ public:
 	iterator	begin(void) 
 	{
 		iterator ret = &this->top();
-		for (unsigned int i = 0; i < this->size(); i++)
+		for (unsigned int i = 1; i < this->size(); i++)
 			ret--;
 		return ret;
 	}
