@@ -1,12 +1,12 @@
-SRCS	= main.cpp BitcoinExchange.cpp
+SRCS	= main.cpp PmergeMe.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
-NAME	= btc
+NAME	= PmergeMe
 
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-HEADERS =  BitcoinExchange.hpp
+HEADERS =  PmergeMe.hpp
 
 RM		= @rm -f
 
