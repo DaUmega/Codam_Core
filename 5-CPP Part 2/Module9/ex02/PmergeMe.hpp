@@ -22,4 +22,10 @@ private:
 	void	parser(int ac, char **av);
 	void	showSequence(const std::string &input, const std::vector<int> &seq);
 	void	showTime(const std::string &input, double time);
+
+	template <typename Iterator>
+    void mergeInsertSort(Iterator p, Iterator q);
+
+    template <typename Iterator>
+    void merge(Iterator p, Iterator q, Iterator r);
 };

@@ -27,17 +27,17 @@ void	PmergeMe::sort(int ac, char **av)
 
     std::vector<int>    vec(seq);
     start = std::clock();
-    std::sort(vec.begin(), vec.end());
+    mergeInsertSort(vec.begin(), vec.end());
     end = std::clock();
-    time = static_cast<double>(end - start) / 1000000;
+    time = static_cast<double>(end - start);
     showSequence("After:", vec);
     showTime("std::vector", time);
 
     std::list<int>  list(seq.begin(), seq.end());
     start = std::clock();
-    list.sort();
+    mergeInsertSort(list.begin(), list.end());
     end = std::clock();
-    time = static_cast<double>(end - start) / 1000000;
+    time = static_cast<double>(end - start);
     showTime("std::list", time);
 }
 
@@ -64,6 +64,46 @@ void	PmergeMe::parser(int ac, char **av)
     }
     if (seq.empty())
         throw std::runtime_error("Error\n");
+}
+
+template <typename Iterator>
+void    PmergeMe::mergeInsertSort(Iterator p, Iterator q) {
+    const int K = 5;
+
+    if (std::distance(p, q) > K) {
+        Iterator mid = p + std::distance(p, q) / 2;
+        mergeInsertSort(p, mid);
+        mergeInsertSort(mid, q);
+        merge(p, mid, q);
+    } else {
+        for (Iterator i = p; i != q; ++i) {
+            typename Iterator::value_type tempVal = *(i + 1);
+            Iterator j = i + 1;
+            while (j != p && *(j - 1) > tempVal) {
+                *j = *(j - 1);
+                j--;
+            }
+            *j = tempVal;
+        }
+    }
+}
+
+template <typename Iterator>
+void    PmergeMe::merge(Iterator p, Iterator q, Iterator r) {
+    typedef typename Iterator::value_type value_type;
+
+    std::vector<value_type> LA(p, q + 1);
+    std::vector<value_type> RA(q + 1, r + 1);
+    Iterator itA = p;
+    typename std::vector<value_type>::iterator itLA = LA.begin();
+    typename std::vector<value_type>::iterator itRA = RA.begin();
+
+    while (itA != r + 1) {
+        if (itRA == RA.end() || (itLA != LA.end() && *itRA > *itLA))
+            *itA++ = *itLA++;
+        else
+            *itA++ = *itRA++;
+    }
 }
 
 void	PmergeMe::showSequence(const std::string &input, const std::vector<int> &seq)
