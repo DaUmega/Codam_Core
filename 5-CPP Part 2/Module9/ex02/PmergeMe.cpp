@@ -77,5 +77,5 @@ void	PmergeMe::showSequence(const std::string &input, const std::vector<int> &se
 void	PmergeMe::showTime(const std::string &input, double time)
 {
     std::cout << "Time to process a range of " << seq.size() 
-    << " elements with " << input << ": " << time << " us\n";
+    << " elements with " << input << " : " << time << " us\n";
 }
