@@ -65,6 +65,8 @@ int     RPN::operation(char op, int first, int second)
         case '*':
             return second * first;
         case '/':
+            if (first == 0)
+                throw std::runtime_error("Error");
             return second / first;
         default:
             throw std::runtime_error("Error");
