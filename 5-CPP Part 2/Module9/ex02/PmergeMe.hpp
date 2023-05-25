@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <vector>
 #include <list>
+#include <iterator>
 
 class PmergeMe
 {
@@ -24,8 +25,7 @@ private:
 	void	showTime(const std::string &input, double time);
 
 	template <typename Iterator>
-    void mergeInsertSort(Iterator p, Iterator q);
-
-    template <typename Iterator>
-    void merge(Iterator p, Iterator q, Iterator r);
+	void    mergeInsertSort(Iterator begin, Iterator end);
+	template <typename Iterator>
+	void    merge(Iterator begin, Iterator mid, Iterator end);
 };

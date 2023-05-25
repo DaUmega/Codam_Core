@@ -29,7 +29,7 @@ void	PmergeMe::sort(int ac, char **av)
     start = std::clock();
     mergeInsertSort(vec.begin(), vec.end());
     end = std::clock();
-    time = static_cast<double>(end - start);
+    time = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     showSequence("After:", vec);
     showTime("std::vector", time);
 
@@ -37,7 +37,7 @@ void	PmergeMe::sort(int ac, char **av)
     start = std::clock();
     mergeInsertSort(list.begin(), list.end());
     end = std::clock();
-    time = static_cast<double>(end - start);
+    time = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     showTime("std::list", time);
 }
 
@@ -67,43 +67,45 @@ void	PmergeMe::parser(int ac, char **av)
 }
 
 template <typename Iterator>
-void    PmergeMe::mergeInsertSort(Iterator p, Iterator q) {
-    const int K = 5;
+void    PmergeMe::mergeInsertSort(Iterator begin, Iterator end)
+{
+	if (begin == end || std::next(begin) == end)
+		return;
 
-    if (std::distance(p, q) > K) {
-        Iterator mid = p + std::distance(p, q) / 2;
-        mergeInsertSort(p, mid);
-        mergeInsertSort(mid, q);
-        merge(p, mid, q);
-    } else {
-        for (Iterator i = p; i != q; ++i) {
-            typename Iterator::value_type tempVal = *(i + 1);
-            Iterator j = i + 1;
-            while (j != p && *(j - 1) > tempVal) {
-                *j = *(j - 1);
-                j--;
-            }
-            *j = tempVal;
-        }
-    }
+	Iterator mid = std::next(begin, std::distance(begin, end) / 2);
+	mergeInsertSort(begin, mid);
+	mergeInsertSort(mid, end);
+
+	merge(begin, mid, end);
 }
 
 template <typename Iterator>
-void    PmergeMe::merge(Iterator p, Iterator q, Iterator r) {
-    typedef typename Iterator::value_type value_type;
+void    PmergeMe::merge(Iterator begin, Iterator mid, Iterator end)
+{
+	std::vector<typename Iterator::value_type> sorted;
+	sorted.reserve(std::distance(begin, end));
 
-    std::vector<value_type> LA(p, q + 1);
-    std::vector<value_type> RA(q + 1, r + 1);
-    Iterator itA = p;
-    typename std::vector<value_type>::iterator itLA = LA.begin();
-    typename std::vector<value_type>::iterator itRA = RA.begin();
+	Iterator left = begin;
+	Iterator right = mid;
 
-    while (itA != r + 1) {
-        if (itRA == RA.end() || (itLA != LA.end() && *itRA > *itLA))
-            *itA++ = *itLA++;
-        else
-            *itA++ = *itRA++;
-    }
+	while (left != mid && right != end)
+	{
+		if (*right < *left)
+		{
+			sorted.push_back(*right);
+			++right;
+		}
+		else
+		{
+			sorted.push_back(*left);
+			++left;
+		}
+	}
+
+	sorted.insert(sorted.end(), left, mid);
+	sorted.insert(sorted.end(), right, end);
+
+	std::copy(sorted.begin(), sorted.end(), begin);
 }
 
 void	PmergeMe::showSequence(const std::string &input, const std::vector<int> &seq)
@@ -117,5 +119,5 @@ void	PmergeMe::showSequence(const std::string &input, const std::vector<int> &se
 void	PmergeMe::showTime(const std::string &input, double time)
 {
     std::cout << "Time to process a range of " << seq.size() 
-    << " elements with " << input << " : " << time << " us\n";
+    << " elements with " << input << " : " << time << " s\n";
 }
