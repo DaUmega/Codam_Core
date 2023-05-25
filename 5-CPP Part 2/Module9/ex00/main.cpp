@@ -11,7 +11,7 @@ int	main(int ac, char **av)
 	std::string		input = av[1];
 	BitcoinExchange	test;
 	test.dbParse();
-	test.inputParse();
+	test.inputParse(input);
 	
 	return 0;
 }

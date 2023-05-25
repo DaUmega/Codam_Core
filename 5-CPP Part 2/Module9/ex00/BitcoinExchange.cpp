@@ -65,12 +65,12 @@ void    BitcoinExchange::dbParse(void)
     file.close();
 }
 
-void    BitcoinExchange::inputParse(void)
+void    BitcoinExchange::inputParse(std::string input)
 {
     float   ret;
     bool    first = true;
     
-    std::ifstream file("input.txt");
+    std::ifstream file(input);
     if (!file)
     {
         std::cout << "Error: could not open input.txt file.\n";

@@ -17,7 +17,7 @@ public:
 	BitcoinExchange &operator=(const BitcoinExchange &other);
 	
 	void	dbParse(void);
-	void	inputParse(void);
+	void	inputParse(std::string input);
 
 private:
 	std::map<std::string, float>	_db;
