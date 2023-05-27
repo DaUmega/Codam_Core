@@ -1,7 +1,7 @@
 FROM	debian:buster
 
-RUN		apt-get update && apt-get install -y nginx openssl \
-		&& mkdir /etc/nginx/ssl 
+RUN		apt-get update && apt-get install -y wget curl bash \
+		php php-cgi php-mysql php-fpm
 RUN		openssl req -newkey rsa:4096 -x509 -sha256 -days 365 \
 		-nodes -out /etc/nginx/ssl/pdong.crt \
 		-keyout /etc/nginx/ssl/pdong.key \
