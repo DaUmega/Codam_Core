@@ -5,7 +5,7 @@ RUN		apt -y update && apt install -y nginx openssl \
 RUN		openssl req -newkey rsa:4096 -x509 -sha256 -days 365 \
 		-nodes -out /etc/nginx/ssl/pdong.crt \
 		-keyout /etc/nginx/ssl/pdong.key \
-		-subj "/C=NL/ST=Amsterdam/L=Amsterdam/O=Codam/OU=pdong/CN=${DOMAIN_NAME}/"
+		-subj "/C=NL/ST=Amsterdam/L=Amsterdam/O=Codam/OU=pdong/CN=pdong.42.fr/"
 
 COPY	./conf/nginx.conf /etc/nginx/conf.d
 
