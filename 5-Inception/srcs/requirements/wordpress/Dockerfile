@@ -1,16 +1,21 @@
 FROM	debian:buster
 
 RUN		apt-get update && apt-get install -y wget curl bash \
-		php php-cgi php-mysql php-fpm
-RUN		openssl req -newkey rsa:4096 -x509 -sha256 -days 365 \
-		-nodes -out /etc/nginx/ssl/pdong.crt \
-		-keyout /etc/nginx/ssl/pdong.key \
-		-subj "/C=NL/ST=Amsterdam/L=Amsterdam/O=Codam/OU=pdong/CN=pdong.42.fr/"
+		php php-cgi php-mysql php-fpm php-gd php-cli
+RUN		curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+		&& chmod +x wp-cli.phar \
+		&& mv wp-cli.phar /usr/local/bin/wp
 
-COPY	./conf/nginx.conf /etc/nginx/conf.d
+COPY	./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
-RUN 	mkdir -p /run/nginx
+RUN 	mkdir -p /run/php
 
-EXPOSE	443
+COPY	./tools/init.sh /usr/local/bin/
+RUN		chmod +x /usr/local/bin/init.sh
+ENTRYPOINT	["/usr/local/bin/init.sh"]
 
-CMD		[ "nginx", "-g", "daemon off;" ]
+WORKDIR	/var/www/html/
+
+EXPOSE	9000
+
+CMD		[ "/usr/sbin/php-fpm7.3", "-F" ]
