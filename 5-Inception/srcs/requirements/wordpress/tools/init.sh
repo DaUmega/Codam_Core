@@ -1,8 +1,6 @@
 #!/bin/sh
 
-while ! mariadb -h$MYSQL_HOSTNAME -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE &>/dev/null; do
-    sleep 3
-done
+sed -i 's|PHP_PORT|9000|g' /etc/php/7.3/fpm/pool.d/www.conf
 
 if [ -f /var/www/html/wordpress/wp-config.php ]
 then

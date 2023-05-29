@@ -1,8 +1,9 @@
-version: '3.8'
+version: '3'
 
 services:
   mariadb:
     container_name: mariadb
+    env_file: .env
     build: 
       context: requirements/mariadb
       args:
@@ -15,11 +16,10 @@ services:
     networks:
       - network
     # restart: always
-    env_file:
-      - .env
 
   wordpress:
     container_name: wordpress
+    env_file: .env
     depends_on:
       - mariadb
     build:
@@ -30,8 +30,6 @@ services:
         MYSQL_PASSWORD : "${MYSQL_PASSWORD}"
         MYSQL_HOST : "${MYSQL_HOST}"
     # restart: always
-    env_file:
-      - .env
     volumes:
       - wordpress:/var/www/html/wordpress
     networks:
@@ -39,6 +37,7 @@ services:
 
   nginx:
     container_name: nginx
+    env_file: .env
     depends_on:
       - wordpress
     build: requirements/nginx
@@ -49,13 +48,10 @@ services:
     # restart: always
     networks:
       - network
-    env_file:
-      - .env
 
 networks:
   network:
-    name: network
-    external: false
+    driver: bridge
 
 volumes:
   wordpress:
