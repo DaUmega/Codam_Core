@@ -2,13 +2,13 @@ FROM	debian:buster
 
 RUN		apt-get update && apt-get install -y nginx openssl \
 		&& mkdir /etc/nginx/ssl && mkdir -p /run/nginx \
-		&& chown -R kali /var/lib/nginx \
+		&& chown -R www-data /var/lib/nginx \
 		&& rm -rf /etc/nginx/sites-available/default
 
 COPY	conf/default.conf /etc/nginx/sites-available/default.conf
 COPY    conf/nginx.conf /etc/nginx/nginx.conf
 
-RUN		mkdir -p /var/www/html/wordpress && chown -R kali /var/www/html/wordpress
+RUN		mkdir -p /var/www/html/wordpress && chown -R www-data /var/www/html/wordpress
 RUN		ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 RUN		openssl req -newkey rsa:4096 -x509 -sha256 -days 365 \
 		-nodes -out /etc/nginx/ssl/pdong.crt \
