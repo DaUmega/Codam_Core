@@ -15,6 +15,8 @@ COPY    ./conf/my.cnf /etc/mysql
 RUN     chmod 777 /tmp/mariadb.sh && chown -R mysql:mysql /tmp/ && \
         chown -R mysql:mysql /etc/mysql
 
+USER    mysql
+
 EXPOSE 3306
 
 ENTRYPOINT [ "/tmp/mariadb.sh" ]
