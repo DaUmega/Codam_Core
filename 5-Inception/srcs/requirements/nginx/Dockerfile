@@ -19,7 +19,7 @@ COPY	conf/default.conf /etc/nginx/sites-available/default.conf
 COPY    conf/nginx.conf /etc/nginx/nginx.conf
 
 RUN		mkdir -p /var/www/html/wordpress && chown -R www-data /var/www/html/wordpress
-RUN		ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
+# RUN		ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 RUN		sed -i 's|DOMAIN_NAME|pdong.42.fr|g' /etc/nginx/sites-available/default.conf \
 		&& sed -i 's|WP_PATH|\/var\/www\/html\/wordpress|g' /etc/nginx/sites-available/default.conf \
 		&& sed -i 's|PHP_HOST|wordpress|g' /etc/nginx/sites-available/default.conf \
