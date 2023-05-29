@@ -19,7 +19,10 @@ RUN 	mkdir -p /run/php
 
 COPY	tools/init.sh /tmp/
 RUN		chmod +x /tmp/init.sh
+ENTRYPOINT	["/tmp/init.sh"]
+
+WORKDIR	/var/www/html/
 
 EXPOSE	9000
 
-ENTRYPOINT	["/tmp/init.sh"]
+CMD		["php-fpm7.3", "-F"]
