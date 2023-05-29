@@ -1,30 +1,22 @@
 #!/bin/sh
 
-mysql_install_db
-/etc/init.d/mysql start
+sed -i 's|MYSQL_DATABASE|'${MYSQL_DATABASE}'|g' /tmp/init.sql
+sed -i 's|MYSQL_USER|'${MYSQL_USER}'|g' /tmp/init.sql
+sed -i 's|MYSQL_PASSWORD|'${MYSQL_PASSWORD}'|g' /tmp/init.sql
+sed -i 's|MYSQL_ROOT_PASSWORD|'${MYSQL_ROOT_PASSWORD}'|g' /tmp/init.sql
+sed -i 's|MYSQL_PORT|3306|g' /etc/mysql/my.cnf
+sed -i 's|MYSQL_ADDRESS|0.0.0.0|g' /etc/mysql/my.cnf
 
 if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]
-then 
-	echo "Database already exists"
+
+then
+  echo "Database already exists."
+  mysqld_safe
+
 else
-	mysql_secure_installation << _EOF_
-Y
-test1234
-test1234
-Y
-n
-Y
-Y
-_EOF_
-
-	echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot
-
-	echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE; GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; FLUSH PRIVILEGES;" | mysql -u root
-
-	mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.sql
+  mysql_install_db
+  mysqld --init-file="/tmp/init.sql"
 
 fi
-
-/etc/init.d/mysql stop
 
 exec "$@"
