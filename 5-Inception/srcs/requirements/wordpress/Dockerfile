@@ -10,12 +10,12 @@ COPY	conf/www.conf /etc/php/7.3/fpm/pool.d/
 
 RUN 	mkdir -p /run/php
 
-COPY	tools/init.sh /usr/local/bin/
-RUN		chmod +x /usr/local/bin/init.sh
-ENTRYPOINT	["/usr/local/bin/init.sh"]
+COPY	tools/init.sh /tmp/
+RUN		chmod +x /tmp/init.sh
+ENTRYPOINT	["/tmp/init.sh"]
 
 WORKDIR	/var/www/html/
 
 EXPOSE	9000
 
-CMD		["/usr/sbin/php-fpm7.3", "-F"]
+CMD		["php-fpm7.3", "-F"]

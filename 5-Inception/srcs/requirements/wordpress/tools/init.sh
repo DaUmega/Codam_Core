@@ -1,21 +1,21 @@
 #!/bin/sh
 
-if [ -f ./wp-config.php ]
+while ! mariadb -h$MYSQL_HOSTNAME -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE &>/dev/null; do
+    sleep 3
+done
+
+if [ -f /var/www/html/wordpress/wp-config.php ]
 then
 	echo "wordpress already installed"
 else
-	wget http://wordpress.org/latest.tar.gz
-	tar xfz latest.tar.gz
-	mv wordpress/* .
-	rm -f latest.tar.gz
-	rm -rf wordpress
-
-	#Import env variables
-	sed -i "s/username_here/$MYSQL_USER/g" wp-config-sample.php
-	sed -i "s/password_here/$MYSQL_PASSWORD/g" wp-config-sample.php
-	sed -i "s/localhost/$MYSQL_HOSTNAME/g" wp-config-sample.php
-	sed -i "s/database_name_here/$MYSQL_DATABASE/g" wp-config-sample.php
-	cp wp-config-sample.php wp-config.php
+	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+	chmod +x wp-cli.phar
+	mv wp-cli.phar /usr/local/bin/wp
+	wp core download --path=/var/www/html --allow-root
+	wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=mariadb --path=/var/www/html --skip-check --allow-root
+	wp core install --path=/var/www/html --url=$DOMAIN_NAME --title=Inception --admin_user=$WP_DB_ADMIN --admin_password=$WP_DB_ADMIN_PASSWORD --admin_email=$WP_DB_EMAIL --skip-email --allow-root
+	wp theme install teluro --path=/var/www/html --activate --allow-root
+	wp user create $WP_DB_USER $WP_DB_USER_EMAIL --role=author --path=/var/www/html --user_pass=$WP_DB_PASSWORD --allow-root
 fi
 
-exec "$@"
+/usr/sbin/php-fpm7.3 -F
