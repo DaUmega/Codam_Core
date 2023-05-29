@@ -3,6 +3,8 @@ version: '3.8'
 services:
   nginx:
     container_name: nginx42
+    depends_on:
+      - wordpress
     build: requirements/nginx
     ports:
       - 443:443
