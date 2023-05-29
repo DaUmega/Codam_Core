@@ -18,7 +18,13 @@ services:
 
   mariadb:
     container_name: mariadb
-    build: requirements/mariadb
+    build: 
+      context: requirements/mariadb
+      args:
+        MYSQL_DATABASE : ${MYSQL_DATABASE}
+        MYSQL_USER : $MYSQL_USER
+        MYSQL_PASSWORD : $MYSQL_PASSWORD
+        MYSQL_ROOT_PASSWORD : $MYSQL_ROOT_PASSWORD
     volumes:
       - mariadb:/var/lib/mysql
     networks:
