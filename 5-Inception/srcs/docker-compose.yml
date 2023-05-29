@@ -1,22 +1,24 @@
-version: '3'
+version: '3.8'
 
 services:
   nginx:
-    container_name: nginx
-    build: ./requirements/nginx
+    container_name: nginx42
+    build: requirements/nginx
     ports:
       - 443:443
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress:/var/www/html
     restart: always
     networks:
       - network
+    env_file:
+      - .env
 
   mariadb:
-    container_name: mariadb
-    build: ./requirements/mariadb
+    container_name: mariadb42
+    build: requirements/mariadb
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     networks:
       - network
     restart: always
@@ -24,16 +26,35 @@ services:
       - .env
 
   wordpress:
-    container_name: wordpress
+    container_name: wordpress42
     depends_on:
       - mariadb
     build:
-      context: ./requirements/wordpress
+      context: requirements/wordpress
       dockerfile: Dockerfile
     restart: always
     env_file:
       - .env
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress:/var/www/html
     networks:
       - network
+
+networks:
+  network:
+    name: network
+    external: false
+
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${HOME}/codam/Inception/wordpress
+  mariadb:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${HOME}/codam/Inception/mariadb
