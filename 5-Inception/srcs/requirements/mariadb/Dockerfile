@@ -1,6 +1,6 @@
 FROM debian:buster
 
-RUN		apt-get update -yq && \
+RUN	apt-get update -yq && \
         apt-get upgrade -y && \
         apt-get install mariadb-server \
         mariadb-client -y && \
@@ -12,7 +12,7 @@ COPY    ./tools/mariadb.sh /tmp/
 COPY    ./conf/init.sql /tmp/
 COPY    ./conf/my.cnf /etc/mysql
 
-RUN     chown -R mysql:mysql /tmp/ && \
+RUN     chmod 777 /tmp/mariadb.sh && chown -R mysql:mysql /tmp/ && \
         chown -R mysql:mysql /etc/mysql
 
 EXPOSE 3306

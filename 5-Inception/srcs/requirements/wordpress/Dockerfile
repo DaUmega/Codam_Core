@@ -1,6 +1,6 @@
 FROM	debian:buster
 
-RUN		apt update -y && \
+RUN	apt update -y && \
         apt-get upgrade -y && \
         apt-get install -y php \
         php-mysql \
