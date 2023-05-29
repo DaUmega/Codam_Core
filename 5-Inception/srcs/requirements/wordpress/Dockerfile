@@ -14,7 +14,7 @@ COPY	tools/init.sh /usr/local/bin/
 RUN		chmod +x /usr/local/bin/init.sh
 ENTRYPOINT	["/usr/local/bin/init.sh"]
 
-WORKDIR	/var/www/html/wp
+WORKDIR	/var/www/html/
 
 EXPOSE	9000
 
