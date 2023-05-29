@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   nginx:
-    container_name: nginx42
+    container_name: nginx
     depends_on:
       - wordpress
     build: requirements/nginx
@@ -10,31 +10,31 @@ services:
       - 443:443
     volumes:
       - wordpress:/var/www/html
-    # restart: always
+    restart: always
     networks:
       - network
     env_file:
       - .env
 
   mariadb:
-    container_name: mariadb42
+    container_name: mariadb
     build: requirements/mariadb
     volumes:
       - mariadb:/var/lib/mysql
     networks:
       - network
-    # restart: always
+    restart: always
     env_file:
       - .env
 
   wordpress:
-    container_name: wordpress42
+    container_name: wordpress
     depends_on:
       - mariadb
     build:
       context: requirements/wordpress
       dockerfile: Dockerfile
-    # restart: always
+    restart: always
     env_file:
       - .env
     volumes:
