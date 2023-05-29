@@ -47,14 +47,4 @@ networks:
 
 volumes:
   wordpress:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ${HOME}/codam/Inception/wordpress
   mariadb:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ${HOME}/codam/Inception/mariadb
