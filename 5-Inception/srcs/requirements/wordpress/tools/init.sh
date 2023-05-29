@@ -17,3 +17,5 @@ else
 	sed -i "s/wordpress/$MYSQL_DATABASE/g" wp-config-sample.php
 	cp wp-config-sample.php wp-config.php
 fi
+
+exec "$@"
