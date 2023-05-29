@@ -9,7 +9,7 @@ RUN		openssl req -newkey rsa:4096 -x509 -sha256 -days 365 \
 		-keyout /etc/nginx/ssl/pdong.key \
 		-subj "/C=NL/ST=Amsterdam/L=Amsterdam/O=Codam/OU=pdong/CN=pdong.42.fr"
 
-COPY	conf/default.conf /etc/nginx/sites-available/default.conf
+COPY	conf/default.conf /etc/nginx/default.conf
 COPY    conf/nginx.conf /etc/nginx/nginx.conf
 
 RUN		mkdir -p /var/www/html/wordpress && chown -R www-data /var/www/html/wordpress
