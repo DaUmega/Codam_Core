@@ -10,7 +10,7 @@ else
 	chmod +x wp-cli.phar
 	mv wp-cli.phar /usr/local/bin/wp
 	wp core download --path=/var/www/html/wordpress --allow-root
-	wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=mariadb --path=/var/www/html --skip-check --allow-root
+	wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=mariadb --path=/var/www/html/wordpress --skip-check --allow-root
 	wp core install --path=/var/www/html/wordpress --url=$DOMAIN_NAME --title=Inception --admin_user=$WP_DB_ADMIN --admin_password=$WP_DB_ADMIN_PASSWORD --admin_email=$WP_DB_EMAIL --skip-email --allow-root
 	wp theme install teluro --path=/var/www/html/wordpress --activate --allow-root
 	wp user create $WP_DB_USER $WP_DB_USER_EMAIL --role=author --path=/var/www/html/wordpress --user_pass=$WP_DB_PASSWORD --allow-root
