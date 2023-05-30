@@ -55,4 +55,12 @@ networks:
 
 volumes:
   wordpress:
+    driver_opts:
+      o: bind
+      type: none
+      device: ${HOME}/inception/wordpress
   mariadb:
+    driver_opts:
+      o: bind
+      type: none
+      device: ${HOME}/inception/mariadb
