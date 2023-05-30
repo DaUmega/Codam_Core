@@ -9,7 +9,7 @@ COPY	conf/default.conf /etc/nginx/sites-available/default.conf
 COPY    conf/nginx.conf /etc/nginx/nginx.conf
 
 RUN		mkdir -p /var/www/html/wordpress && chown -R www-data:www-data /var/www/* \
-		&& chmod -R 777 /var/www/*;
+		&& chmod -R 755 /var/www/*;
 RUN		ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 RUN		openssl req -newkey rsa:4096 -x509 -sha256 -days 365 \
 		-nodes -out /etc/nginx/ssl/pdong.crt \
