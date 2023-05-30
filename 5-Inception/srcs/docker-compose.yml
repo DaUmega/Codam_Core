@@ -58,9 +58,9 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /home/kali/pdong/inception/wordpress
+      device: /home/pdong/data/wordpress
   mariadb:
     driver_opts:
       o: bind
       type: none
-      device: /home/kali/pdong/inception/mariadb
+      device: /home/pdong/data/mariadb
