@@ -15,7 +15,7 @@ services:
       - mariadb:/var/lib/mysql
     networks:
       - network
-    # restart: always
+    restart: always
 
   wordpress:
     container_name: wordpress
@@ -29,7 +29,7 @@ services:
         MYSQL_USER : "${MYSQL_USER}"
         MYSQL_PASSWORD : "${MYSQL_PASSWORD}"
         MYSQL_HOST : "${MYSQL_HOST}"
-    # restart: always
+    restart: always
     volumes:
       - wordpress:/var/www/html/wordpress
     networks:
@@ -45,7 +45,7 @@ services:
       - 443:443
     volumes:
       - wordpress:/var/www/html/wordpress
-    # restart: always
+    restart: always
     networks:
       - network
 
