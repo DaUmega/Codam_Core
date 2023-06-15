@@ -6,13 +6,13 @@
 #    By: pniezen <pniezen@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/01/25 09:32:45 by pniezen       #+#    #+#                  #
-#    Updated: 2023/02/06 14:37:40 by pniezen       ########   odam.nl          #
+#    Updated: 2023/06/15 14:33:30 by pdong         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Ofast
 
 HEADERS = ./include/cubed.h ./include/settings.h ./include/color.h
 SRC_F = main.c key_hook.c utils.c parse_map.c free_ft.c list_utils.c inputparse.c\
