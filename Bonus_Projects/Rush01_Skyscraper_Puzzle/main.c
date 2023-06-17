@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/17 10:04:43 by pdong         #+#    #+#                 */
-/*   Updated: 2023/06/17 18:59:29 by pdong         ########   odam.nl         */
+/*   Updated: 2023/06/17 19:20:50 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	solve(int input[SI], int grid[SI][SI], int row, int col)
 		if (check_dup(grid, row, col))
 		{
 			if (solve(input, grid, row, col + 1))
-				return (1);
+				return (is_valid(input, grid, row, col));
 		}
 		i++;
 	}
