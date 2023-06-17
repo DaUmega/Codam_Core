@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/17 11:57:12 by pdong         #+#    #+#                 */
-/*   Updated: 2023/06/17 18:52:57 by pdong         ########   odam.nl         */
+/*   Updated: 2023/06/17 19:29:58 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	input_check(char *s)
 	count = 0;
 	while (s && s[i])
 	{
-		if (s[i] >= '1' && s[i] <= '4')
+		if (s[i] >= '1' && s[i] <= SI + '0')
 			count++;
 		i++;
 	}
@@ -37,7 +37,7 @@ void	parse_input(char *s, int *ret)
 	j = 0;
 	while (s && s[i])
 	{
-		if (s[i] >= '1' && s[i] <= '4')
+		if (s[i] >= '1' && s[i] <= SI + '0')
 		{
 			ret[j] = s[i] - '0';
 			j++;
@@ -52,10 +52,10 @@ void	initialize(int ans[SI][SI])
 	int	j;
 
 	i = 0;
-	while (i < 4)
+	while (i < SI)
 	{
 		j = 0;
-		while (j < 4)
+		while (j < SI)
 		{
 			ans[i][j] = 0;
 			j++;
