@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/17 10:17:13 by pdong         #+#    #+#                 */
-/*   Updated: 2023/06/17 19:32:21 by pdong         ########   odam.nl         */
+/*   Updated: 2023/06/18 10:50:00 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_dup(int grid[SI][SI], int row, int col)
 	return (1);
 }
 
-int	check_horizontal_right(int *input, int grid[SI][SI], int row, int col)
+int	check_horizontal_right(int *input, int grid[SI][SI], int row)
 {
 	int	i;
 	int	visible;
@@ -54,7 +54,7 @@ int	check_horizontal_right(int *input, int grid[SI][SI], int row, int col)
 	return (visible == input[row + SI * 3]);
 }
 
-int	check_horizontal_left(int *input, int grid[SI][SI], int row, int col)
+int	check_horizontal_left(int *input, int grid[SI][SI], int row)
 {
 	int	i;
 	int	visible;
@@ -75,7 +75,7 @@ int	check_horizontal_left(int *input, int grid[SI][SI], int row, int col)
 	return (visible == input[row + SI * 2]);
 }
 
-int	check_vertical_bottom(int *input, int grid[SI][SI], int row, int col)
+int	check_vertical_bottom(int *input, int grid[SI][SI], int col)
 {
 	int	i;
 	int	visible;
@@ -96,7 +96,7 @@ int	check_vertical_bottom(int *input, int grid[SI][SI], int row, int col)
 	return (visible == input[col + SI]);
 }
 
-int	check_vertical_top(int *input, int grid[SI][SI], int row, int col)
+int	check_vertical_top(int *input, int grid[SI][SI], int col)
 {
 	int	i;
 	int	visible;
