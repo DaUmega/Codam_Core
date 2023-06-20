@@ -6,13 +6,13 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/17 10:04:43 by pdong         #+#    #+#                 */
-/*   Updated: 2023/06/18 11:02:09 by pdong         ########   odam.nl         */
+/*   Updated: 2023/06/20 14:41:56 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sky.h"
 
-int	is_valid(int input[SI], int grid[SI][SI], int row, int col)
+int	is_valid(int *input, int grid[SI][SI], int row, int col)
 {
 	return (check_horizontal_left(input, grid, row)
 		&& check_horizontal_right(input, grid, row)
@@ -20,7 +20,7 @@ int	is_valid(int input[SI], int grid[SI][SI], int row, int col)
 		&& check_vertical_top(input, grid, col));
 }
 
-int	solve(int input[SI], int grid[SI][SI], int row, int col)
+int	solve(int *input, int grid[SI][SI], int row, int col)
 {
 	int	i;
 
