@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function deleteFile() {
+      var fileLocation = document.getElementById("fileLocation").value;
+
+      if (fileLocation.includes('/')) {
+        alert("Invalid file, remove '/' character.");
+        return;
+      }
+      fetch(fileLocation, {
+        method: "DELETE"
+      })
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(response) {
+        alert(response);
+      })
+      .catch(function(error) {
+        console.log("Error:", error);
+      });
+    }
+  </script>
+</head>
+<body>
+  <form id="uploadForm" method="post" enctype="multipart/form-data">
+    <label for="file">File</label>
+    <input id="file" name="file" type="file" />
+    <button>Upload</button>
+  </form>
+  <form>
+    <label for="fileLocation">File Name:</label>
+    <input type="text" id="fileLocation" name="fileLocation" required>
+    <button type="button" onclick="deleteFile()">Delete</button>
+  </form>
+  <div id="responseContainer"></div>
+</body>
+</html>
