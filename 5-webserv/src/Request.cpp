@@ -102,14 +102,14 @@ bool  RequestHandler::contentTypeChecker(std::string value) {
     "application/zip", "application/x-www-form-urlencoded", "audio/mpeg", "audio/x-ms-wma", "audio/vnd.rn-realaudio",
     "audio/x-wav", "image/gif", "image/jpeg", "image/png", "image/tiff", "image/vnd.microsoft.icon", "image/x-icon",
     "image/vnd.djvu", "image/svg+xml", "multipart/mixed", "multipart/alternative", "multipart/related", "multipart/form-data",
-    "text/css", "text/csv", "text/html", "text/javascript", "text/plain", "text/xml", "video/mpeg", "video/mp4",
+    "text/css", "text/csv", "text/html", "text/javascript", "text/plain", "plain/text", "text/xml", "video/mpeg", "video/mp4",
     "video/quicktime", "video/x-ms-wmv", "video/x-msvideo", "video/x-flv", "video/webm" };
   std::string lowercaseValue = toLowerCase(value);
   for (std::size_t i = 0; i < (sizeof(validContentTypes) / sizeof(validContentTypes[0])); i++) {
     if (lowercaseValue == validContentTypes[i])
       return true;
   }
-  throw std::runtime_error("Content Type is Invalid."); //Needs better handling.
+  _copyBlock._responseCode = "400";
   return false;
 }
 

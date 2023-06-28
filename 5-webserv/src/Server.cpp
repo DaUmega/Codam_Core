@@ -60,7 +60,7 @@ int serverBlock::_bind() {
 int serverBlock::start() {
   _skfd = socket(AF_INET, SOCK_STREAM, 0);
   if (_skfd == -1)
-    throw std::exception();// TODO
+    throw std::exception();
   fcntl(_skfd, F_SETFL, O_NONBLOCK);
   int reuseAddr = 1;
   if (setsockopt(_skfd, SOL_SOCKET, SO_REUSEADDR, &reuseAddr, sizeof(reuseAddr)) < 0) {
@@ -68,9 +68,9 @@ int serverBlock::start() {
       throw std::runtime_error("Failed to set socket options");
   }
   if (_bind() < 0)
-    throw std::runtime_error("Bind failed");// TODO close fd
+    throw std::runtime_error("Bind failed");
   if (listen(_skfd, POLLSIZE) < 0)
-    throw std::runtime_error("Listen failed");// TODO close fd
+    throw std::runtime_error("Listen failed");
 
   std::cout << "Listening on port " << _port << std::endl;
   return (_skfd);
@@ -84,7 +84,8 @@ int Server::newConnection(int fd) {
   {
     if (errno != EWOULDBLOCK) {
       std::cout << "Accept error decide how to handle it" << std::endl;
-      exit(EXIT_FAILURE);
+      std::cout << strerror(errno) << std::endl;
+      return (-2);
     }
     return (ERROR);
   }
@@ -107,6 +108,31 @@ int Server::newConnection(int fd) {
   return (new_conn);
 }
 
+void Server::reorder_fds(size_t &actual_fds) {
+  for (size_t i = 0; i < actual_fds; i++) {
+    if (_fds[i].fd == 0) {
+      size_t size = actual_fds;
+      for (size_t j = i + 1; j <= size; j++, i++) {
+        if (_fds[j].fd != 0){
+          *(&_fds[i]) = _fds[j];
+          memset(&_fds[j], 0, sizeof(_fds[0]));
+        }
+      }
+    }
+  }
+}
+
+void Server::closeConnection(struct pollfd *poll, int &actual_fds) {
+  std::cout << "Closing conn " << poll->fd << "\n";
+  _clFd.erase(poll->fd);
+  if (close(poll->fd) == ERROR)
+    std::cout << "Closing error: " << strerror(errno) << std::endl;
+  memset(poll, 0, sizeof(_fds[0]));
+  _itPoll--;
+  size_t t = actual_fds;
+  reorder_fds(t);
+}
+
 void  Server::start()
 {
   memset(_fds, 0 , sizeof(_fds));
@@ -118,74 +144,76 @@ void  Server::start()
     _servers[serverBlocks[i].getSocket()] = serverBlocks[i];
   }
 
-  int fd = 0, cl_fd, it_poll = serverBlocks.size();
+  int fd = 0, cl_fd;
+  _itPoll = serverBlocks.size();
   while (1)
   {
     fd = poll(_fds, POLLSIZE, 1000);
     if (fd < 0)
-      throw std::runtime_error("Poll failed");// clean and restart
+      throw std::runtime_error("Poll failed");
     else if (fd == 0)
       continue;
-    size_t actual_fds = it_poll;
-    for (size_t i = 0; i < actual_fds; i++)
+    for (int i = 0; i < _itPoll; i++)
     {
-      usleep(10000);
       if(_fds[i].revents == 0)
         continue;
       if(_fds[i].revents != POLLIN)
       {
-        close(_fds[i].fd);
-        _fds[i].fd = 0;
+        closeConnection(&_fds[i], _itPoll);
         continue;
       }
       if (_servers.count(_fds[i].fd))
       {
         do
         {
+          usleep(10000);
           cl_fd = newConnection(_fds[i].fd);
+          if (cl_fd == -2) {
+            std::cout << "Accept error" << std::endl;
+            break;
+          }
           if (cl_fd != ERROR) {
             _clFd[cl_fd] = _fds[i].fd;
-            _fds[it_poll].fd = cl_fd;
-            _fds[it_poll++].events = POLLIN;
+            _fds[_itPoll].fd = cl_fd;
+            _fds[_itPoll++].events = POLLIN;
+            std::cout << "Accepted new conn " << cl_fd << "..." << std::endl;
           }
         } while (cl_fd > ERROR);
       }
-      else {// event occurend on existing connection
-        /*
-        * Read the message of the request
-        * TODO handle fails & lost connection
-        */
-        std::string raw_request = readSocketData(_fds[i].fd);
+      else {
+        std::vector<char> buffer(MAX_SIZE);
 
+        std::string raw_request;
+        ssize_t bytesRead;
+        do {
+          bytesRead = recv(_fds[i].fd, &buffer[0], MAX_SIZE, 0);
+          if (bytesRead == ERROR) {
+            std::cout << "Recv error on " << _fds[i].fd << " I-> " << i << std::endl;
+            // send error
+            std::cout << strerror(errno) << std::endl;
+            closeConnection(&_fds[i], _itPoll);
+            break ;
+          }
+          else if (bytesRead > 0) {
+            raw_request += std::string(&buffer[0], bytesRead);
+          }
+        } while (bytesRead == MAX_SIZE);
+        if (bytesRead == ERROR) {
+          std::cout << "Get error on " << _fds[i].fd << " I-> " << i << std::endl;
+          continue;
+        }
         RequestHandler req(_servers[_clFd[_fds[i].fd]], raw_request);
         if (_servers[_clFd[_fds[i].fd]]._responseCode != "500")
           _servers[_clFd[_fds[i].fd]]._responseCode = req.requestlineChecker();
 
         //  Send response
         std::string uploadLocation = "/_uploads/"; //don't remove slashes
-        /*
-        * Access by fd map
-        * <client fd, server socket fd>
-        */
         ResponseHandler ret(_servers[_clFd[_fds[i].fd]], uploadLocation);
         std::string response = ret.generateResponse(req);
         if (send(_fds[i].fd, response.c_str(), response.length(), 0) < 0) {
-          close(_fds[i].fd);
-          _fds[i].fd = 0;
+          std::cout << "Send error" << std::endl;
+          closeConnection(&_fds[i], _itPoll);
           continue;
-        }
-        _clFd.erase(_fds[i].fd);
-        close(_fds[i].fd);
-        _fds[i].fd = 0;
-        it_poll--;
-        for (size_t i = 0; i < actual_fds; i++) {
-          if (_fds[i].fd == 0) {
-            size_t size = actual_fds;
-            for (size_t j = i + 1; j < size; j++, i++) {
-              if (_fds[j].fd != 0)
-                _fds[i] = _fds[j];
-            }
-          }
         }
       }
     }

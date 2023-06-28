@@ -55,12 +55,15 @@ class Server {
     ~Server();
 
     void        start();
+    void        reorder_fds(size_t &actual_fds);
     std::string readSocketData(int socket);
     int         newConnection(int fd);
+    void         closeConnection(struct pollfd *poll, int &actual_size);
   
   private:
 
     std::vector<serverBlock>  serverBlocks;
+    int           _itPoll;
     struct pollfd _fds[POLLSIZE];
     std::map<int, int> _clFd;
     std::map<int, serverBlock> _servers;

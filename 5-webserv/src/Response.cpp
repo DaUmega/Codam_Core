@@ -86,22 +86,27 @@ std::string ResponseHandler::generateResponse(RequestHandler &req) {
 
     _uri = req.uri;
     int slashLocation;
-    if (_uri.find("http://") != std::string::npos)
+    if (not _uri.empty())
     {
-        _uri = _uri.substr(_uri.find('/', 7));
-        if (_uri.find('/', 1) != std::string::npos)
-            _uri = _uri.substr(0, _uri.find('/') - 1);
+        if (_uri.find("http://") != std::string::npos)
+        {
+            _uri = _uri.substr(_uri.find('/', 7));
+            if (_uri.find('/', 1) != std::string::npos)
+                _uri = _uri.substr(0, _uri.find('/') - 1);
+        }
+        if (_uri.find(_copyBlock._serverName) != std::string::npos)
+            _uri = _uri.substr(_uri.find(_copyBlock._serverName), _copyBlock._serverName.size());
+        slashLocation = _uri.find("/");
+        if (_uri.find('.') != std::string::npos)
+        {
+            int beforeFileLocation = _uri.find_last_of('/', _uri.find('.'));
+            _location = _uri.substr(slashLocation, beforeFileLocation);
+        }
+        else if (_uri == "/")
+            _location = "/";
+        else
+            _location = _uri.substr(slashLocation, _uri.find("/", 1));
     }
-    slashLocation = _uri.find("/");
-    if (_uri.find('.') != std::string::npos)
-    {
-        int beforeFileLocation = _uri.find_last_of('/', _uri.find('.'));
-        _location = _uri.substr(slashLocation, beforeFileLocation);
-    }
-    else if (_uri == "/")
-        _location = "/";
-    else
-        _location = _uri.substr(slashLocation, _uri.find("/", 1));
 
     if (req._copyBlock._responseCode != "100") {
         _body = _statusCode + " " + _statusCodes[_statusCode] + "\r\n";
@@ -112,6 +117,8 @@ std::string ResponseHandler::generateResponse(RequestHandler &req) {
         _statusCode = "405";
         _body = _statusCode + " " + _statusCodes[_statusCode];
     }
+    else if (_uri.find(".php") != std::string::npos && _uri.find(".php") == _uri.length() - 4 && req.method == "GET")
+        phpCGI(req);
     else if (req.method == "GET")
         get();
     else if (req.method == "POST") {
@@ -121,7 +128,7 @@ std::string ResponseHandler::generateResponse(RequestHandler &req) {
         }
         else {
             _statusCode = "200";
-            _body = "Upload successful";
+            _body = "Upload Successful";
         }
     }
     else if (req.method == "DELETE") {
@@ -179,13 +186,6 @@ void    ResponseHandler::readHTML(const std::string &fileLocation) {
 void    ResponseHandler::get() {
     if (_uri == "/favicon.ico/" || _uri == "/_errors/main.css/")
         _uri = "/";
-
-    if (_uri.find(".php") != std::string::npos && _uri.find(".php") == _uri.length() - 4)
-    {
-        phpCGI();
-        // _body = "cgi executed";
-        return;
-    }
 
     if (not isDirectory(_copyBlock._root + _uri))
         _statusCode = "200";
@@ -275,8 +275,8 @@ void    ResponseHandler::getDirectoryListing(const std::string &location)
         while ((entry = readdir(dir))) {
             std::string name = entry->d_name;
             std::string link = temp + "/" + name;
-            if (link.find("www") != std::string::npos)
-                link = link.substr(link.find("www") + 3);
+            if (link.find(_copyBlock._root) != std::string::npos)
+                link = link.substr(link.find(_copyBlock._root) + _copyBlock._root.size());
             _body += "<a href=\"" + link + "\">" + name + "</a><br>\n";
         }
         _body += "</body></html>";
@@ -286,14 +286,16 @@ void    ResponseHandler::getDirectoryListing(const std::string &location)
         _statusCode= "404";
 }
 
-void    ResponseHandler::phpCGI()
+void    ResponseHandler::phpCGI(RequestHandler &req)
 {
     std::string phpPath = "/usr/bin/php";
-    std::string www = "/www";
+    std::string root = _copyBlock._root;
     char    cwd[FILENAME_MAX];
     getcwd(cwd, sizeof(cwd));
 
-    std::string exec_path = cwd + www + _uri;
+    std::string exec_path = cwd;
+    exec_path += "/";
+    exec_path = exec_path + root + _uri;
     char    *args[] = {const_cast<char*>(phpPath.c_str()), const_cast<char*>(exec_path.c_str()), NULL};
 
     int pipe_fd[2];
@@ -309,16 +311,48 @@ void    ResponseHandler::phpCGI()
         _statusCode = "500"; // internal error
         close(pipe_fd[1]);
     }
+
     // child process
     if (fork_pid == 0) {
-        close(pipe_fd[0]);
-        d_fd = dup2(pipe_fd[1], STDOUT_FILENO);
 
-        execve(phpPath.c_str(), args, NULL); // execve will exit(0) on succes.
-        close(pipe_fd[1]);
-        exit(500); // this will only be reached when execve fails.
+        std::vector<std::string> envVars;
+        if (req.method == "POST")
+        {
+            envVars.push_back("REQUEST_METHOD=POST");
+            std::string temp = "CONTENT_TYPE=" + req.contentType;
+            std::ostringstream oss;
+            envVars.push_back(temp);
+
+            oss << req.body.size();
+            std::string size = oss.str();
+            temp = "CONTENT_LENGTH=" + size;
+            envVars.push_back(temp);
+
+            std::vector<char*> env;
+            env.reserve(envVars.size() + 1);
+            for (std::vector<std::string>::const_iterator it = envVars.begin(); it != envVars.end(); ++it) {
+                env.push_back(const_cast<char*>(it->c_str()));
+            }
+            env.push_back(NULL);
+            char* const* envp = &env[0];
+
+            close(pipe_fd[0]);
+            d_fd = dup2(pipe_fd[1], STDOUT_FILENO);
+            execve(phpPath.c_str(), args, envp);
+            close(pipe_fd[1]);
+            exit(500);
+        }
+        else
+        {
+            close(pipe_fd[0]);
+            d_fd = dup2(pipe_fd[1], STDOUT_FILENO);
+
+            execve(phpPath.c_str(), args, NULL); // execve will exit(0) on succes.
+            close(pipe_fd[1]);
+            exit(500); // this will only be reached when execve fails.
+        }
     }
-    // parrent process
+    // parent process
     else {
         int	child_state;
 

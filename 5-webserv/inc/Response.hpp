@@ -6,8 +6,7 @@
 #include <vector>
 #include <map>
 #include <sstream>
-#include <string>
-#include <stdio.h>
+#include <cstdio>
 #include <dirent.h>
 #include <Server.hpp>
 
@@ -32,7 +31,7 @@ class ResponseHandler {
         bool    deleteReq(RequestHandler &req);
         bool    isDirectory(const std::string &location);
         void    getDirectoryListing(const std::string &location);
-        void    phpCGI();
+        void    phpCGI(RequestHandler &req);
 
     public:
         ResponseHandler(serverBlock &input, std::string &location);
