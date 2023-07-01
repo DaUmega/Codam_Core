@@ -6,4 +6,4 @@ It's a self-paced, peer-to-peer learning school that will allow me to acquire th
 
 There are a total of 7 ranks of projects to complete before graduation. As you successfully complete projects, you will rank up to the next one. The project folders here begin with their rank number. 6 is the final rank.
 
-Anticipated Completion Date: Before 2023-05-31
+Anticipated Completion Date: Before 2023-07-31
