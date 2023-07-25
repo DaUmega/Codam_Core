@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/17 11:57:12 by pdong         #+#    #+#                 */
-/*   Updated: 2023/06/17 19:29:58 by pdong         ########   odam.nl         */
+/*   Updated: 2023/07/25 18:21:18 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	input_check(char *s)
 	count = 0;
 	while (s && s[i])
 	{
+		if (s[i] != ' ' && (s[i] > SI + '0' || s[i] < '1'))
+			return (0);
 		if (s[i] >= '1' && s[i] <= SI + '0')
 			count++;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/17 10:04:43 by pdong         #+#    #+#                 */
-/*   Updated: 2023/06/20 14:41:56 by pdong         ########   odam.nl         */
+/*   Updated: 2023/07/25 18:43:48 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	is_valid(int *input, int grid[SI][SI], int row, int col)
 {
-	return (check_horizontal_left(input, grid, row)
+	return (check_dup(grid, row, col)
+		&& check_horizontal_left(input, grid, row)
 		&& check_horizontal_right(input, grid, row)
 		&& check_vertical_bottom(input, grid, col)
 		&& check_vertical_top(input, grid, col));
@@ -35,8 +36,11 @@ int	solve(int *input, int grid[SI][SI], int row, int col)
 	while (i <= SI)
 	{
 		grid[row][col] = i;
-		if (check_dup(grid, row, col) && solve(input, grid, row, col + 1))
-			return (is_valid(input, grid, row, col));
+		if (is_valid(input, grid, row, col))
+		{
+			if (solve(input, grid, row, col + 1))
+				return (1);
+		}
 		i++;
 	}
 	grid[row][col] = 0;
@@ -71,6 +75,7 @@ int	main(int ac, char **av)
 	int		input[SI * 4];
 	int		ans[SI][SI];
 
+	write(1, "Usage: ./rush01 \"up down left right\"\n", 37);
 	if (ac != 2 || !input_check(av[1]))
 	{
 		write(1, "Error\n", 6);

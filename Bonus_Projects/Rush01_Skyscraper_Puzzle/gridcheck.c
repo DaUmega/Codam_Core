@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/17 10:17:13 by pdong         #+#    #+#                 */
-/*   Updated: 2023/06/18 10:50:00 by pdong         ########   odam.nl         */
+/*   Updated: 2023/07/25 18:45:08 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	check_dup(int grid[SI][SI], int row, int col)
 	i = 0;
 	while (i < col)
 	{
-		if (i != col && grid[row][i] == grid[row][col])
+		if (grid[row][i] == grid[row][col])
 			return (0);
 		i++;
 	}
 	i = 0;
 	while (i < row)
 	{
-		if (i != row && grid[i][col] == grid[row][col])
+		if (grid[i][col] == grid[row][col])
 			return (0);
 		i++;
 	}
@@ -41,10 +41,12 @@ int	check_horizontal_right(int *input, int grid[SI][SI], int row)
 
 	i = SI - 1;
 	visible = 1;
-	max = grid[row][SI - 1];
+	max = grid[row][i];
 	while (i >= 0)
 	{
-		if (grid[row][i] != 0 && grid[row][i] > max)
+		if (grid[row][i] == 0)
+			return (1);
+		if (grid[row][i] > max)
 		{
 			visible++;
 			max = grid[row][i];
@@ -62,10 +64,12 @@ int	check_horizontal_left(int *input, int grid[SI][SI], int row)
 
 	i = 0;
 	visible = 1;
-	max = grid[row][0];
+	max = grid[row][i];
 	while (i <= SI - 1)
 	{
-		if (grid[row][i] != 0 && grid[row][i] > max)
+		if (grid[row][i] == 0)
+			return (1);
+		if (grid[row][i] > max)
 		{
 			visible++;
 			max = grid[row][i];
@@ -83,10 +87,12 @@ int	check_vertical_bottom(int *input, int grid[SI][SI], int col)
 
 	i = SI - 1;
 	visible = 1;
-	max = grid[SI - 1][col];
+	max = grid[i][col];
 	while (i >= 0)
 	{
-		if (grid[i][col] != 0 && grid[i][col] > max)
+		if (grid[i][col] == 0)
+			return (1);
+		if (grid[i][col] > max)
 		{
 			visible++;
 			max = grid[i][col];
@@ -104,10 +110,12 @@ int	check_vertical_top(int *input, int grid[SI][SI], int col)
 
 	i = 0;
 	visible = 1;
-	max = grid[0][col];
+	max = grid[i][col];
 	while (i <= SI - 1)
 	{
-		if (grid[i][col] != 0 && grid[i][col] > max)
+		if (grid[i][col] == 0)
+			return (1);
+		if (grid[i][col] > max)
 		{
 			visible++;
 			max = grid[i][col];
