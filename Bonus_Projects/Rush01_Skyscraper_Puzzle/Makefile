@@ -1,4 +1,4 @@
-SRCS	= main.c parser.c gridcheck.c
+SRCS	= main.c parser.c gridcheck.c algorithm.c
 
 OBJS	= $(SRCS:.c=.o)
 

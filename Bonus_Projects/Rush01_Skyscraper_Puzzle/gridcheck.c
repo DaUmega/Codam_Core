@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/17 10:17:13 by pdong         #+#    #+#                 */
-/*   Updated: 2023/07/25 18:45:08 by pdong         ########   odam.nl         */
+/*   Updated: 2023/07/25 19:21:47 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	check_horizontal_right(int *input, int grid[SI][SI], int row)
 	i = SI - 1;
 	visible = 1;
 	max = grid[row][i];
+	if (max == 0)
+		return (1);
 	while (i >= 0)
 	{
-		if (grid[row][i] == 0)
-			return (1);
 		if (grid[row][i] > max)
 		{
 			visible++;
@@ -68,7 +68,7 @@ int	check_horizontal_left(int *input, int grid[SI][SI], int row)
 	while (i <= SI - 1)
 	{
 		if (grid[row][i] == 0)
-			return (1);
+			return (visible <= input[row + SI * 2]);
 		if (grid[row][i] > max)
 		{
 			visible++;
@@ -76,7 +76,9 @@ int	check_horizontal_left(int *input, int grid[SI][SI], int row)
 		}
 		i++;
 	}
-	return (visible == input[row + SI * 2]);
+	if (i == SI)
+		return (visible == input[row + SI * 2]);
+	return (visible <= input[row + SI * 2]);
 }
 
 int	check_vertical_bottom(int *input, int grid[SI][SI], int col)
@@ -88,10 +90,10 @@ int	check_vertical_bottom(int *input, int grid[SI][SI], int col)
 	i = SI - 1;
 	visible = 1;
 	max = grid[i][col];
+	if (max == 0)
+		return (1);
 	while (i >= 0)
 	{
-		if (grid[i][col] == 0)
-			return (1);
 		if (grid[i][col] > max)
 		{
 			visible++;
@@ -114,7 +116,7 @@ int	check_vertical_top(int *input, int grid[SI][SI], int col)
 	while (i <= SI - 1)
 	{
 		if (grid[i][col] == 0)
-			return (1);
+			return (visible <= input[col]);
 		if (grid[i][col] > max)
 		{
 			visible++;
@@ -122,5 +124,7 @@ int	check_vertical_top(int *input, int grid[SI][SI], int col)
 		}
 		i++;
 	}
-	return (visible == input[col]);
+	if (i == SI)
+		return (visible == input[col]);
+	return (visible <= input[col]);
 }
