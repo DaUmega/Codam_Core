@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/25 19:22:45 by pdong         #+#    #+#                 */
-/*   Updated: 2023/07/25 19:48:06 by pdong         ########   odam.nl         */
+/*   Updated: 2023/07/25 20:09:53 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	solve(int *input, int grid[SI][SI], int row, int col)
 	while (i <= SI)
 	{
 		grid[row][col] = i;
-		if (is_valid(input, grid, row, col) && branch_cut(input, grid, row, col))
+		if (is_valid(input, grid, row, col) 
+			&& branch_cut(input, grid, row, col))
 		{
 			if (solve(input, grid, row, col + 1))
 				return (1);

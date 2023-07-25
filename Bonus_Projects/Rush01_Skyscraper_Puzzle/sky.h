@@ -6,7 +6,7 @@
 /*   By: pdong <pdong@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/17 10:54:16 by pdong         #+#    #+#                 */
-/*   Updated: 2023/07/25 20:05:31 by pdong         ########   odam.nl         */
+/*   Updated: 2023/07/25 20:11:03 by pdong         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SKY_H
 # include <stdlib.h>
 # include <unistd.h>
-# define SI 4
+# define SI 7
 # include <stdio.h>
 
 void	parse_input(char *s, int *ret);
