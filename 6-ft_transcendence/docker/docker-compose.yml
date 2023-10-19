@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  postgresql:
+    container_name: postgresql
+    env_file: .env
+    build: 
+      context: requirements/postgresql
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    networks:
+      - network
+    restart: always
+  
+  backend:
+    container_name: backend
+    env_file: .env
+    depends_on:
+      - postgresql
+    ports:
+      - 3000:3000
+    build:
+      context: ./requirements/backend
+    restart: always
+    networks:
+      - network
+
+  frontend:
+    container_name: frontend
+    env_file: .env
+    depends_on:
+      - backend
+    ports:
+      - 80:80
+    build:
+      context: ./requirements/frontend
+    volumes:
+      - ./requirements/frontend/data:/var/www/html/frontend
+      - /var/www/html/frontend/node_modules
+    restart: always
+    networks:
+      - network
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    depends_on:
+      - postgresql
+    ports:
+      - 8282:8080
+    restart: always
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  frontend:
+  postgresql:

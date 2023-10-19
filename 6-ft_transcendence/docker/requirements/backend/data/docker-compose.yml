@@ -1,0 +1,14 @@
+version: "3"
+
+#运行：docker-compose up -d , -d means to run the containers in "detached" mode, so going to be running in the background.
+#currently we have only one service "db" listed here, if there are more services and want to run a specific one,
+#can pass the name by "docker-compose up db -d", db can be other service name.
+#if pass nothing, 将会生成所有 defined services
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: pass123
